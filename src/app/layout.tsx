@@ -1,3 +1,5 @@
+import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 import type { Metadata } from "next"
 import { Aleo, Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
@@ -30,11 +32,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ThemeToggle />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
