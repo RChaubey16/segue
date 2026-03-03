@@ -1,3 +1,4 @@
+import { QuickStart } from "@/components/quick-start"
 import { TransitionCard } from "@/components/transition-card"
 import { getTransitions } from "@/lib/registry"
 
@@ -20,7 +21,7 @@ export default async function Home() {
           <span className="text-accent">ready to drop in.</span>
         </p>
         <p className="mt-5 max-w-[520px] text-[17px] leading-relaxed text-muted-foreground">
-          Segue is a collection of animated page transitions for Next.js, built
+          Segue is a collection of animated page transitions for Next.js and React, built
           on the native{" "}
           <a
             href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API"
@@ -54,7 +55,7 @@ export default async function Home() {
             {
               step: "03",
               title: "Wrap your links",
-              desc: "Replace your Next.js Link with the transition component. Done.",
+              desc: "Replace your Link with the transition component. Done.",
             },
           ].map((item) => (
             <div key={item.step} className="rounded-xl border border-border bg-card p-5">
@@ -77,45 +78,7 @@ export default async function Home() {
         <div className="section-label mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
           Quick start
         </div>
-        <div className="overflow-hidden rounded-xl border border-border bg-card">
-          <div className="border-b border-border px-4 py-2.5">
-            <span className="font-mono text-[11px] text-muted-foreground">
-              terminal
-            </span>
-          </div>
-          <pre className="p-5 font-mono text-[13px] leading-[1.7] text-foreground">
-            npx segue add slide-right
-          </pre>
-        </div>
-        <p className="mt-3 text-[13px] text-muted-foreground">
-          Then use it in any page or layout:
-        </p>
-        <div className="mt-3 overflow-hidden rounded-xl border border-border bg-card">
-          <div className="border-b border-border px-4 py-2.5">
-            <span className="font-mono text-[11px] text-muted-foreground">
-              app/page.tsx
-            </span>
-          </div>
-          <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-[1.7] text-foreground">
-            <span className="hl-kw">import</span> {"{"} SlideRightLink {"}"}{" "}
-            <span className="hl-kw">from</span>{" "}
-            <span className="hl-st">{'"@/transitions/slide-right"'}</span>
-            {"\n\n"}
-            <span className="hl-kw">export default</span>{" "}
-            <span className="hl-kw">function</span> Page() {"{"}
-            {"\n"}
-            {"  "}
-            <span className="hl-kw">return</span> (
-            {"\n"}
-            {"    "}&lt;SlideRightLink href=
-            <span className="hl-st">{'"/ about"'}</span>&gt;
-            {"\n"}
-            {"      "}Go to About{"\n"}
-            {"    "}&lt;/SlideRightLink&gt;{"\n"}
-            {"  "}){"\n"}
-            {"}"}
-          </pre>
-        </div>
+        <QuickStart />
       </div>
 
       {/* Transitions */}

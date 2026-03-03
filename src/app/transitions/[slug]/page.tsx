@@ -1,5 +1,4 @@
-import { CodeBlock } from "@/components/detail/code-block"
-import { InstallSection } from "@/components/detail/install-section"
+import { FrameworkSections } from "@/components/detail/framework-sections"
 import { LiveDemo } from "@/components/detail/live-demo"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -105,21 +104,14 @@ export default async function TransitionDetailPage({
         />
       </section>
 
-      {/* Install */}
-      <section className="animate-fade-up mb-14 [animation-delay:160ms]">
-        <div className="section-label text-muted-foreground mb-4 flex items-center gap-2.5 font-mono text-[11px] font-medium tracking-[0.12em] uppercase">
-          Install
-        </div>
-        <InstallSection slug={slug} manualFiles={transition.manualFiles} />
-      </section>
-
-      {/* Usage */}
-      <section className="animate-fade-up mb-14 [animation-delay:200ms]">
-        <div className="section-label text-muted-foreground mb-4 flex items-center gap-2.5 font-mono text-[11px] font-medium tracking-[0.12em] uppercase">
-          Usage
-        </div>
-        <CodeBlock filename="app/page.tsx" code={transition.usageCode} />
-      </section>
+      {/* Install + Usage (shared framework selector) */}
+      <FrameworkSections
+        slug={slug}
+        manualFiles={transition.manualFiles}
+        reactManualFiles={transition.reactManualFiles}
+        usageCode={transition.usageCode}
+        reactUsageCode={transition.reactUsageCode}
+      />
     </div>
   )
 }

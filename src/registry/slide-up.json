@@ -31,5 +31,30 @@
       "code": "import { TransitionLink } from \"@/components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideUpLink({ href, children, className }) {\n  return (\n    <TransitionLink\n      href={href}\n      transitionClass=\"slide-up\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
     }
   ],
-  "usageCode": "import { SlideUpLink } from \"@/transitions/slide-up\"\n\nexport default function Page() {\n  return (\n    <SlideUpLink href=\"/about\">\n      Go to About\n    </SlideUpLink>\n  )\n}"
+  "usageCode": "import { SlideUpLink } from \"@/transitions/slide-up\"\n\nexport default function Page() {\n  return (\n    <SlideUpLink href=\"/about\">\n      Go to About\n    </SlideUpLink>\n  )\n}",
+  "reactFiles": [
+    {
+      "path": "transitions/slide-up/transition.css",
+      "content": "@keyframes slide-up-in {\n  from { transform: translateY(100%); opacity: 0; }\n  to   { transform: translateY(0);    opacity: 1; }\n}\n@keyframes slide-up-out {\n  from { transform: translateY(0);     opacity: 1; }\n  to   { transform: translateY(-100%); opacity: 0; }\n}\n\nhtml.slide-up::view-transition-new(root) {\n  animation: slide-up-in 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.slide-up::view-transition-old(root) {\n  animation: slide-up-out 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "path": "transitions/slide-up/link.tsx",
+      "content": "import { TransitionLink } from \"../components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideUpLink({ to, children, className }: {\n  to: string\n  children: React.ReactNode\n  className?: string\n}) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"slide-up\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    },
+    {
+      "path": "transitions/slide-up/index.ts",
+      "content": "export { SlideUpLink } from \"./link\""
+    }
+  ],
+  "reactManualFiles": [
+    {
+      "name": "transitions/slide-up/transition.css",
+      "code": "@keyframes slide-up-in {\n  from { transform: translateY(100%); opacity: 0; }\n  to   { transform: translateY(0);    opacity: 1; }\n}\n@keyframes slide-up-out {\n  from { transform: translateY(0);     opacity: 1; }\n  to   { transform: translateY(-100%); opacity: 0; }\n}\n\nhtml.slide-up::view-transition-new(root) {\n  animation: slide-up-in 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.slide-up::view-transition-old(root) {\n  animation: slide-up-out 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "name": "transitions/slide-up/link.tsx",
+      "code": "import { TransitionLink } from \"../components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideUpLink({ to, children, className }) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"slide-up\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    }
+  ],
+  "reactUsageCode": "import { SlideUpLink } from \"./transitions/slide-up\"\n\nfunction App() {\n  return (\n    <SlideUpLink to=\"/about\">\n      Go to About\n    </SlideUpLink>\n  )\n}"
 }

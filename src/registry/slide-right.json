@@ -31,5 +31,30 @@
       "code": "import { TransitionLink } from \"@/components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideRightLink({ href, children, className }) {\n  return (\n    <TransitionLink\n      href={href}\n      transitionClass=\"slide-right\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
     }
   ],
-  "usageCode": "import { SlideRightLink } from \"@/transitions/slide-right\"\n\nexport default function Page() {\n  return (\n    <SlideRightLink href=\"/about\">\n      Go to About\n    </SlideRightLink>\n  )\n}"
+  "usageCode": "import { SlideRightLink } from \"@/transitions/slide-right\"\n\nexport default function Page() {\n  return (\n    <SlideRightLink href=\"/about\">\n      Go to About\n    </SlideRightLink>\n  )\n}",
+  "reactFiles": [
+    {
+      "path": "transitions/slide-right/transition.css",
+      "content": "@keyframes slide-right-in {\n  from { transform: translateX(100%); opacity: 0; }\n  to   { transform: translateX(0);    opacity: 1; }\n}\n@keyframes slide-right-out {\n  from { transform: translateX(0);     opacity: 1; }\n  to   { transform: translateX(-100%); opacity: 0; }\n}\n\nhtml.slide-right::view-transition-new(root) {\n  animation: slide-right-in 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.slide-right::view-transition-old(root) {\n  animation: slide-right-out 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "path": "transitions/slide-right/link.tsx",
+      "content": "import { TransitionLink } from \"../components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideRightLink({ to, children, className }: {\n  to: string\n  children: React.ReactNode\n  className?: string\n}) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"slide-right\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    },
+    {
+      "path": "transitions/slide-right/index.ts",
+      "content": "export { SlideRightLink } from \"./link\""
+    }
+  ],
+  "reactManualFiles": [
+    {
+      "name": "transitions/slide-right/transition.css",
+      "code": "@keyframes slide-right-in {\n  from { transform: translateX(100%); opacity: 0; }\n  to   { transform: translateX(0);    opacity: 1; }\n}\n@keyframes slide-right-out {\n  from { transform: translateX(0);     opacity: 1; }\n  to   { transform: translateX(-100%); opacity: 0; }\n}\n\nhtml.slide-right::view-transition-new(root) {\n  animation: slide-right-in 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.slide-right::view-transition-old(root) {\n  animation: slide-right-out 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "name": "transitions/slide-right/link.tsx",
+      "code": "import { TransitionLink } from \"../components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideRightLink({ to, children, className }) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"slide-right\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    }
+  ],
+  "reactUsageCode": "import { SlideRightLink } from \"./transitions/slide-right\"\n\nfunction App() {\n  return (\n    <SlideRightLink to=\"/about\">\n      Go to About\n    </SlideRightLink>\n  )\n}"
 }

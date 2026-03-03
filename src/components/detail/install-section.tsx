@@ -6,13 +6,16 @@ import { CodeBlock } from "./code-block"
 interface InstallSectionProps {
   slug: string
   manualFiles: { name: string; code: string }[]
+  reactManualFiles?: { name: string; code: string }[]
+  framework: "nextjs" | "react"
 }
 
-export function InstallSection({ slug, manualFiles }: InstallSectionProps) {
+export function InstallSection({ slug, manualFiles, reactManualFiles, framework }: InstallSectionProps) {
   const [tab, setTab] = useState<"npx" | "manual">("npx")
   const [copied, setCopied] = useState(false)
 
   const npxCommand = `npx segue add ${slug}`
+  const activeManualFiles = framework === "react" && reactManualFiles ? reactManualFiles : manualFiles
 
   const copy = () => {
     navigator.clipboard.writeText(npxCommand)
@@ -66,7 +69,7 @@ export function InstallSection({ slug, manualFiles }: InstallSectionProps) {
       {/* manual tab */}
       {tab === "manual" && (
         <div className="flex flex-col gap-3">
-          {manualFiles.map((f) => (
+          {activeManualFiles.map((f) => (
             <CodeBlock key={f.name} filename={f.name} code={f.code} />
           ))}
         </div>
