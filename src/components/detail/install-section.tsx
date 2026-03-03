@@ -28,11 +28,11 @@ export function InstallSection({ slug, manualFiles }: InstallSectionProps) {
           <button
             key={t}
             onClick={() => setTab(t)}
-            className={`font-mono text-[12px] px-4 py-1.5 rounded-t-md border border-b-0 cursor-pointer transition-colors duration-150
-              ${tab === t
+            className={`cursor-pointer rounded-t-md border border-b-0 px-4 py-1.5 font-mono text-[12px] transition-colors duration-150 ${
+              tab === t
                 ? "bg-card text-foreground border-border"
-                : "bg-transparent text-muted-foreground border-border hover:text-foreground"
-              }`}
+                : "text-muted-foreground border-border hover:text-foreground bg-transparent"
+            }`}
           >
             {t}
           </button>
@@ -41,21 +41,25 @@ export function InstallSection({ slug, manualFiles }: InstallSectionProps) {
 
       {/* npx tab */}
       {tab === "npx" && (
-        <div className="bg-card border border-border rounded-tr-lg rounded-b-lg overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-border">
-            <span className="font-mono text-[11px] text-muted-foreground">terminal</span>
+        <div className="bg-card border-border overflow-hidden rounded-tr-lg rounded-b-lg border">
+          <div className="border-border flex items-center justify-between border-b px-4 py-2.5">
+            <span className="text-muted-foreground font-mono text-[11px]">
+              terminal
+            </span>
             <button
               onClick={copy}
-              className={`font-mono text-[11px] px-2.5 py-0.5 rounded border cursor-pointer transition-colors duration-150
-                ${copied
+              className={`cursor-pointer rounded border px-2.5 py-0.5 font-mono text-[11px] transition-colors duration-150 ${
+                copied
                   ? "border-accent text-accent"
                   : "border-border text-muted-foreground hover:border-accent hover:text-accent"
-                }`}
+              }`}
             >
               {copied ? "copied!" : "copy"}
             </button>
           </div>
-          <pre className="p-5 font-mono text-[13px] leading-[1.7] text-[#c9d1d9]">{npxCommand}</pre>
+          <pre className="p-5 font-mono text-[13px] leading-[1.7] text-[#c9d1d9]">
+            {npxCommand}
+          </pre>
         </div>
       )}
 

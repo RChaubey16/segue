@@ -26,7 +26,7 @@ export async function getTransitions(): Promise<TransitionMeta[]> {
         duration: data.duration,
         easing: data.easing,
       } satisfies TransitionMeta
-    }),
+    })
   )
 
   return transitions.sort((a, b) => a.name.localeCompare(b.name))
