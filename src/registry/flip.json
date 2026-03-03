@@ -1,0 +1,68 @@
+{
+  "slug": "flip",
+  "name": "Flip",
+  "description": "The page flips in 3D like a card being turned over. The old page swings away while the new page rotates in from behind — dramatic, cinematic, and full of depth.",
+  "duration": "600ms",
+  "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+  "animOutClass": "flip-exit",
+  "animInClass": "flip-enter",
+  "demoAnimations": "@keyframes flip-exit { 0% { transform: perspective(800px) rotateY(0deg); opacity: 1; } 100% { transform: perspective(800px) rotateY(-90deg); opacity: 0; } } @keyframes flip-enter { 0% { transform: perspective(800px) rotateY(90deg); opacity: 0; } 100% { transform: perspective(800px) rotateY(0deg); opacity: 1; } } .flip-exit { animation: flip-exit 0.6s cubic-bezier(0.4,0,0.2,1) forwards; transform-origin: center left; } .flip-enter { animation: flip-enter 0.6s cubic-bezier(0.4,0,0.2,1) forwards; transform-origin: center right; }",
+  "files": [
+    {
+      "path": "transitions/flip/transition.css",
+      "content": "@keyframes flip-enter {\n  0%   { transform: perspective(1200px) rotateY(90deg); opacity: 0; }\n  100% { transform: perspective(1200px) rotateY(0deg);  opacity: 1; }\n}\n@keyframes flip-exit {\n  0%   { transform: perspective(1200px) rotateY(0deg);   opacity: 1; }\n  100% { transform: perspective(1200px) rotateY(-90deg); opacity: 0; }\n}\n\nhtml.flip::view-transition-old(root) {\n  animation: flip-exit 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  transform-origin: center left;\n}\nhtml.flip::view-transition-new(root) {\n  animation: flip-enter 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  transform-origin: center right;\n}"
+    },
+    {
+      "path": "transitions/flip/link.tsx",
+      "content": "import { TransitionLink } from \"@/components/transition-link\"\nimport \"./transition.css\"\n\nexport function FlipLink({ href, children, className }: {\n  href: string\n  children: React.ReactNode\n  className?: string\n}) {\n  return (\n    <TransitionLink\n      href={href}\n      transitionClass=\"flip\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    },
+    {
+      "path": "transitions/flip/index.ts",
+      "content": "export { FlipLink } from \"./link\""
+    }
+  ],
+  "manualFiles": [
+    {
+      "name": "components/transition-link.tsx",
+      "code": "\"use client\"\n\nimport Link, { LinkProps } from \"next/link\"\nimport { useRouter } from \"next/navigation\"\nimport { MouseEvent, ReactNode } from \"react\"\n\ninterface TransitionLinkProps extends LinkProps {\n  children: ReactNode\n  className?: string\n  transitionClass: string\n}\n\nexport function TransitionLink({\n  href,\n  children,\n  className,\n  transitionClass,\n  ...props\n}: TransitionLinkProps) {\n  const router = useRouter()\n\n  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {\n    if (\n      e.button !== 0 ||\n      e.ctrlKey ||\n      e.metaKey ||\n      e.shiftKey ||\n      e.altKey\n    ) {\n      return\n    }\n\n    const isExternal = href.toString().startsWith(\"http\") || href.toString().startsWith(\"//\")\n    if (isExternal) return\n\n    e.preventDefault()\n\n    if (!(document as any).startViewTransition) {\n      router.push(href.toString())\n      return\n    }\n\n    document.documentElement.classList.add(transitionClass)\n\n    ;(document as any).startViewTransition(() => {\n      router.push(href.toString())\n    }).finished.finally(() => {\n      document.documentElement.classList.remove(transitionClass)\n    })\n  }\n\n  return (\n    <Link href={href} onClick={handleClick} className={className} {...props}>\n      {children}\n    </Link>\n  )\n}"
+    },
+    {
+      "name": "transitions/flip/transition.css",
+      "code": "@keyframes flip-enter {\n  0%   { transform: perspective(1200px) rotateY(90deg); opacity: 0; }\n  100% { transform: perspective(1200px) rotateY(0deg);  opacity: 1; }\n}\n@keyframes flip-exit {\n  0%   { transform: perspective(1200px) rotateY(0deg);   opacity: 1; }\n  100% { transform: perspective(1200px) rotateY(-90deg); opacity: 0; }\n}\n\nhtml.flip::view-transition-old(root) {\n  animation: flip-exit 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  transform-origin: center left;\n}\nhtml.flip::view-transition-new(root) {\n  animation: flip-enter 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  transform-origin: center right;\n}"
+    },
+    {
+      "name": "transitions/flip/link.tsx",
+      "code": "import { TransitionLink } from \"@/components/transition-link\"\nimport \"./transition.css\"\n\nexport function FlipLink({ href, children, className }) {\n  return (\n    <TransitionLink\n      href={href}\n      transitionClass=\"flip\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    }
+  ],
+  "usageCode": "import { FlipLink } from \"@/transitions/flip\"\n\nexport default function Page() {\n  return (\n    <FlipLink href=\"/about\">\n      Go to About\n    </FlipLink>\n  )\n}",
+  "reactFiles": [
+    {
+      "path": "transitions/flip/transition.css",
+      "content": "@keyframes flip-enter {\n  0%   { transform: perspective(1200px) rotateY(90deg); opacity: 0; }\n  100% { transform: perspective(1200px) rotateY(0deg);  opacity: 1; }\n}\n@keyframes flip-exit {\n  0%   { transform: perspective(1200px) rotateY(0deg);   opacity: 1; }\n  100% { transform: perspective(1200px) rotateY(-90deg); opacity: 0; }\n}\n\nhtml.flip::view-transition-old(root) {\n  animation: flip-exit 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  transform-origin: center left;\n}\nhtml.flip::view-transition-new(root) {\n  animation: flip-enter 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  transform-origin: center right;\n}"
+    },
+    {
+      "path": "transitions/flip/link.tsx",
+      "content": "import { TransitionLink } from \"../../components/transition-link\"\nimport \"./transition.css\"\n\nexport function FlipLink({ to, children, className }: {\n  to: string\n  children: React.ReactNode\n  className?: string\n}) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"flip\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    },
+    {
+      "path": "transitions/flip/index.ts",
+      "content": "export { FlipLink } from \"./link\""
+    }
+  ],
+  "reactManualFiles": [
+    {
+      "name": "components/transition-link.tsx",
+      "code": "import { Link, LinkProps, useNavigate } from \"react-router-dom\"\nimport { MouseEvent, ReactNode } from \"react\"\n\ninterface TransitionLinkProps extends Pick<LinkProps, \"to\"> {\n  children: ReactNode\n  className?: string\n  transitionClass: string\n}\n\nexport function TransitionLink({\n  to,\n  children,\n  className,\n  transitionClass,\n  ...props\n}: TransitionLinkProps) {\n  const navigate = useNavigate()\n\n  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {\n    if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return\n\n    const isExternal = to.toString().startsWith(\"http\") || to.toString().startsWith(\"//\")\n    if (isExternal) return\n\n    e.preventDefault()\n\n    if (!(document as any).startViewTransition) {\n      navigate(to.toString())\n      return\n    }\n\n    document.documentElement.classList.add(transitionClass)\n\n    ;(document as any).startViewTransition(() => {\n      navigate(to.toString())\n    }).finished.finally(() => {\n      document.documentElement.classList.remove(transitionClass)\n    })\n  }\n\n  return (\n    <Link to={to} onClick={handleClick} className={className} {...props}>\n      {children}\n    </Link>\n  )\n}"
+    },
+    {
+      "name": "transitions/flip/transition.css",
+      "code": "@keyframes flip-enter {\n  0%   { transform: perspective(1200px) rotateY(90deg); opacity: 0; }\n  100% { transform: perspective(1200px) rotateY(0deg);  opacity: 1; }\n}\n@keyframes flip-exit {\n  0%   { transform: perspective(1200px) rotateY(0deg);   opacity: 1; }\n  100% { transform: perspective(1200px) rotateY(-90deg); opacity: 0; }\n}\n\nhtml.flip::view-transition-old(root) {\n  animation: flip-exit 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  transform-origin: center left;\n}\nhtml.flip::view-transition-new(root) {\n  animation: flip-enter 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  transform-origin: center right;\n}"
+    },
+    {
+      "name": "transitions/flip/link.tsx",
+      "code": "import { TransitionLink } from \"../../components/transition-link\"\nimport \"./transition.css\"\n\nexport function FlipLink({ to, children, className }) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"flip\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    }
+  ],
+  "reactUsageCode": "import { FlipLink } from \"./transitions/flip\"\n\nfunction App() {\n  return (\n    <FlipLink to=\"/about\">\n      Go to About\n    </FlipLink>\n  )\n}"
+}
