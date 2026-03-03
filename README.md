@@ -6,11 +6,13 @@ Segue is a collection of animated page transitions for **Next.js** and **React**
 
 ## Why Segue Exists
 
-The [View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API) ships in every major browser. It's the platform-native way to animate between pages — no JavaScript animation runtime, no layout recalculations, no jank. But wiring it into a React or Next.js app still means writing boilerplate: `startViewTransition` calls, CSS pseudo-element rules, router integration, and cleanup logic.
+Modern browsers now support the [View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API) — a native way to animate between pages without JavaScript animation runtimes or layout hacks. It allows web apps to have smooth, continuous navigation instead of abrupt page changes, bringing native-app polish to the web.
 
-Animation libraries like Framer Motion and GSAP are powerful, but they solve a broader problem. Pulling in a full animation runtime just for page transitions adds bundle weight and API surface you don't need.
+But using it in real React or Next.js apps still requires wiring together boilerplate: `startViewTransition` calls, CSS pseudo-element rules, router integration, and cleanup logic. Most teams either skip transitions entirely or reach for full animation libraries like Framer Motion or GSAP — adding bundle weight and complexity just to smooth navigation.
 
-Segue sits in the gap. **Pre-built transitions that use the native API, installed as source code you own.** One command adds a component and a CSS file to your project — no dependency, no lock-in. Think [shadcn/ui](https://ui.shadcn.com), but for page transitions.
+Segue exists to close that gap. **Production-ready navigation transitions built on the native platform API, installed as source code you own.** One command adds a component and a CSS file directly to your project — no runtime dependency, no lock-in.
+
+Think [shadcn/ui](https://ui.shadcn.com), but for page transitions.
 
 ## Quick Start
 

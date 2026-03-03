@@ -1,6 +1,7 @@
 import { QuickStart } from "@/components/quick-start"
 import { TransitionCard } from "@/components/transition-card"
 import { getTransitions } from "@/lib/registry"
+import Link from "next/link"
 
 export default async function Home() {
   const transitions = await getTransitions()
@@ -9,25 +10,24 @@ export default async function Home() {
     <div className="mx-auto max-w-[860px] px-6 pt-12 pb-28">
       {/* Hero */}
       <div className="animate-fade-up mb-16">
-        <div className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-accent/20 bg-accent/8 px-2.5 py-1 font-mono text-[11px] font-medium uppercase tracking-widest text-accent">
-          <i className="block h-1.5 w-1.5 rounded-full bg-accent not-italic" />
+        <div className="border-accent/20 bg-accent/8 text-accent mb-5 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11px] font-medium tracking-widest uppercase">
+          <i className="bg-accent block h-1.5 w-1.5 rounded-full not-italic" />
           Open Source
         </div>
-        <h1 className="font-serif text-[clamp(36px,6vw,56px)] font-extrabold leading-none tracking-[-0.03em]">
+        <h1 className="font-serif text-[clamp(36px,6vw,56px)] leading-none font-extrabold tracking-[-0.03em]">
           Segue
         </h1>
-        <p className="mt-3 text-[clamp(20px,3vw,28px)] font-medium leading-snug text-muted-foreground">
-          Page transitions,{" "}
-          <span className="text-accent">ready to drop in.</span>
+        <p className="text-muted-foreground mt-3 text-[clamp(20px,3vw,28px)] leading-snug font-medium">
+          Page transitions, <span className="text-accent">ready to drop in.</span>
         </p>
-        <p className="mt-5 max-w-[520px] text-[17px] leading-relaxed text-muted-foreground">
-          Segue is a collection of animated page transitions for Next.js and React, built
-          on the native{" "}
+        <p className="text-muted-foreground mt-5 max-w-[520px] text-[17px] leading-relaxed">
+          Segue is a collection of animated page transitions for Next.js and React,
+          built on the native{" "}
           <a
             href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-accent"
+            className="text-foreground decoration-border hover:decoration-accent underline underline-offset-4 transition-colors"
           >
             View Transition API
           </a>
@@ -37,48 +37,54 @@ export default async function Home() {
 
       {/* Why Segue exists */}
       <div className="animate-fade-up mb-16 [animation-delay:80ms]">
-        <div className="section-label mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+        <div className="section-label text-muted-foreground mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium tracking-[0.12em] uppercase">
           Why Segue exists
         </div>
-        <div className="space-y-4 text-[15px] leading-relaxed text-muted-foreground">
+
+        <div className="text-muted-foreground space-y-4 text-[15px] leading-relaxed">
           <p>
-            The{" "}
-            <a
+            Modern browsers now support the{" "}
+            <Link
               href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-accent"
+              className="text-foreground decoration-border hover:decoration-accent underline underline-offset-4 transition-colors"
             >
               View Transition API
-            </a>{" "}
-            ships in every major browser. It&apos;s the platform-native way to animate between
-            pages — no JavaScript animation runtime, no layout recalculations, no jank. But wiring
-            it into a React or Next.js app still means writing boilerplate:{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-[13px]">
+            </Link>{" "}
+            — a native way to animate between pages without JavaScript animation
+            runtimes or layout hacks. It makes navigation feel continuous instead of
+            abrupt, bringing native-app polish to the web.
+          </p>
+
+          <p>
+            But using it in real React or Next.js apps still means wiring together
+            boilerplate:{" "}
+            <code className="bg-muted rounded px-1.5 py-0.5 font-mono text-[13px]">
               startViewTransition
             </code>{" "}
-            calls, CSS pseudo-element rules, router integration, and cleanup logic.
+            calls, CSS pseudo-element rules, router integration, and cleanup logic. Most
+            teams either skip transitions entirely or reach for full animation libraries
+            like Framer Motion or GSAP — adding bundle weight and complexity just to
+            smooth page navigation.
           </p>
+
           <p>
-            Animation libraries like Framer Motion and GSAP are powerful, but they solve a broader
-            problem. Pulling in a full animation runtime just for page transitions adds bundle
-            weight and API surface you don&apos;t need.
-          </p>
-          <p>
-            Segue sits in the gap.{" "}
+            Segue exists to close that gap.{" "}
             <span className="text-foreground font-medium">
-              Pre-built transitions that use the native API, installed as source code you own.
+              Production-ready navigation transitions built on the native platform API,
+              installed as source code you own.
             </span>{" "}
-            One command adds a component and a CSS file to your project — no dependency, no lock-in.
-            Think{" "}
-            <a
+            One command adds a component and a CSS file to your project — no runtime
+            dependency, no lock-in. Think{" "}
+            <Link
               href="https://ui.shadcn.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-accent"
+              className="text-foreground decoration-border hover:decoration-accent underline underline-offset-4 transition-colors"
             >
               shadcn/ui
-            </a>
+            </Link>{" "}
             , but for page transitions.
           </p>
         </div>
@@ -86,7 +92,7 @@ export default async function Home() {
 
       {/* How it works */}
       <div className="animate-fade-up mb-16 [animation-delay:120ms]">
-        <div className="section-label mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+        <div className="section-label text-muted-foreground mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium tracking-[0.12em] uppercase">
           How it works
         </div>
         <div className="grid gap-4 sm:grid-cols-3">
@@ -107,14 +113,15 @@ export default async function Home() {
               desc: "Replace your Link with the transition component. Done.",
             },
           ].map((item) => (
-            <div key={item.step} className="rounded-xl border border-border bg-card p-5">
-              <span className="font-mono text-[11px] text-accent">
-                {item.step}
-              </span>
-              <h3 className="mt-2 text-sm font-semibold text-foreground">
+            <div
+              key={item.step}
+              className="border-border bg-card rounded-xl border p-5"
+            >
+              <span className="text-accent font-mono text-[11px]">{item.step}</span>
+              <h3 className="text-foreground mt-2 text-sm font-semibold">
                 {item.title}
               </h3>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">
+              <p className="text-muted-foreground mt-1.5 text-[13px] leading-relaxed">
                 {item.desc}
               </p>
             </div>
@@ -124,7 +131,7 @@ export default async function Home() {
 
       {/* Quick start */}
       <div className="animate-fade-up mb-16 [animation-delay:160ms]">
-        <div className="section-label mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+        <div className="section-label text-muted-foreground mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium tracking-[0.12em] uppercase">
           Quick start
         </div>
         <QuickStart />
@@ -132,7 +139,7 @@ export default async function Home() {
 
       {/* Transitions */}
       <div className="animate-fade-up [animation-delay:200ms]">
-        <div className="section-label mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+        <div className="section-label text-muted-foreground mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium tracking-[0.12em] uppercase">
           Transitions
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
