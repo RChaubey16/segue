@@ -1,0 +1,60 @@
+/* Grid Expand — image morphs from grid item to detail page hero */
+
+/* Prevent scrollbar from causing layout shift during transition */
+html.grid-expand {
+  scrollbar-gutter: stable;
+}
+
+/* The browser morphs position and size for the named element automatically.
+   Since the same image appears on both pages, the crossfade is invisible —
+   the user sees the image physically moving and scaling into place. */
+
+::view-transition-group(grid-item) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+  overflow: clip;
+}
+
+/* Let old/new snapshots sit on top of each other during the morph.
+   For same-content elements (e.g. same image), this looks like
+   a seamless move. For different content, it produces a smooth blend. */
+::view-transition-old(grid-item),
+::view-transition-new(grid-item) {
+  animation: none;
+  mix-blend-mode: normal;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Background page crossfade — scoped by class to avoid interfering with other transitions */
+
+html.grid-expand::view-transition-old(root) {
+  animation: grid-expand-root-out 0.35s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+html.grid-expand::view-transition-new(root) {
+  animation: grid-expand-root-in 0.35s cubic-bezier(0.32, 0.72, 0, 1) 0.1s both;
+}
+
+@keyframes grid-expand-root-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes grid-expand-root-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Accessibility — respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(grid-item) {
+    animation-duration: 0.01ms;
+  }
+
+  html.grid-expand::view-transition-old(root),
+  html.grid-expand::view-transition-new(root) {
+    animation-duration: 0.01ms;
+  }
+}

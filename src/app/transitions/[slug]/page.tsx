@@ -1,4 +1,5 @@
 import { FrameworkSections } from "@/components/detail/framework-sections"
+import { GridExpandDemo } from "@/components/detail/grid-expand-demo"
 import { LiveDemo } from "@/components/detail/live-demo"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -19,6 +20,7 @@ export async function generateStaticParams() {
     { slug: "slide-left" },
     { slug: "slide-right" },
     { slug: "scale" },
+    { slug: "grid-expand" },
   ]
 }
 
@@ -97,11 +99,15 @@ export default async function TransitionDetailPage({
         <div className="section-label text-muted-foreground mb-4 flex items-center gap-2.5 font-mono text-[11px] font-medium tracking-[0.12em] uppercase">
           Demo
         </div>
-        <LiveDemo
-          slug={slug}
-          animOutClass={transition.animOutClass}
-          animInClass={transition.animInClass}
-        />
+        {transition.demoType === "grid-expand" ? (
+          <GridExpandDemo />
+        ) : (
+          <LiveDemo
+            slug={slug}
+            animOutClass={transition.animOutClass}
+            animInClass={transition.animInClass}
+          />
+        )}
       </section>
 
       {/* Install + Usage (shared framework selector) */}
