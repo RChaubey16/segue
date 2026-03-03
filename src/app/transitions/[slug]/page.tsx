@@ -43,10 +43,10 @@ export default async function TransitionDetailPage({
       <style>{transition.demoAnimations}</style>
 
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 font-mono text-[12px] text-muted mb-14 animate-fade-up">
-        <Link href="/" className="text-muted hover:text-text transition-colors duration-150 no-underline">shft</Link>
+      <nav className="flex items-center gap-2 font-mono text-[12px] text-muted-foreground mb-14 animate-fade-up">
+        <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors duration-150 no-underline">segue</Link>
         <span className="text-border">/</span>
-        <Link href="/transitions" className="text-muted hover:text-text transition-colors duration-150 no-underline">transitions</Link>
+        <Link href="/transitions" className="text-muted-foreground hover:text-foreground transition-colors duration-150 no-underline">transitions</Link>
         <span className="text-border">/</span>
         <span>{slug}</span>
       </nav>
@@ -57,11 +57,11 @@ export default async function TransitionDetailPage({
           <i className="block w-1.5 h-1.5 rounded-full bg-accent not-italic" />
           Page Transition
         </div>
-        <h1 className="font-display text-[clamp(48px,8vw,80px)] font-extrabold leading-none tracking-[-0.03em] mb-5">
+        <h1 className="font-serif text-[clamp(48px,8vw,80px)] font-extrabold leading-none tracking-[-0.03em] mb-5">
           {firstWords}{firstWords ? " " : ""}
           <em className="not-italic text-accent">{lastWord}</em>
         </h1>
-        <p className="text-[17px] text-muted leading-relaxed max-w-[520px]">
+        <p className="text-[17px] text-muted-foreground leading-relaxed max-w-[520px]">
           {transition.description}
         </p>
       </div>
@@ -74,15 +74,15 @@ export default async function TransitionDetailPage({
           ["API",        "View Transition"],
           ["Works with", "Next.js · React"],
         ].map(([label, value]) => (
-          <div key={label} className="flex items-center gap-2 font-mono text-[11px] text-muted bg-surface border border-border px-3.5 py-1.5 rounded-full">
-            {label} <strong className="text-text font-medium">{value}</strong>
+          <div key={label} className="flex items-center gap-2 font-mono text-[11px] text-muted-foreground bg-card border border-border px-3.5 py-1.5 rounded-full">
+            {label} <strong className="text-foreground font-medium">{value}</strong>
           </div>
         ))}
       </div>
 
       {/* Demo */}
       <section className="mb-14 animate-fade-up [animation-delay:120ms]">
-        <div className="section-label flex items-center gap-2.5 font-mono text-[11px] font-medium text-muted tracking-[0.12em] uppercase mb-4">
+        <div className="section-label flex items-center gap-2.5 font-mono text-[11px] font-medium text-muted-foreground tracking-[0.12em] uppercase mb-4">
           Demo
         </div>
         <LiveDemo slug={slug} animOutClass={transition.animOutClass} animInClass={transition.animInClass} />
@@ -90,7 +90,7 @@ export default async function TransitionDetailPage({
 
       {/* Install */}
       <section className="mb-14 animate-fade-up [animation-delay:160ms]">
-        <div className="section-label flex items-center gap-2.5 font-mono text-[11px] font-medium text-muted tracking-[0.12em] uppercase mb-4">
+        <div className="section-label flex items-center gap-2.5 font-mono text-[11px] font-medium text-muted-foreground tracking-[0.12em] uppercase mb-4">
           Install
         </div>
         <InstallSection slug={slug} manualFiles={transition.manualFiles} />
@@ -98,7 +98,7 @@ export default async function TransitionDetailPage({
 
       {/* Usage */}
       <section className="mb-14 animate-fade-up [animation-delay:200ms]">
-        <div className="section-label flex items-center gap-2.5 font-mono text-[11px] font-medium text-muted tracking-[0.12em] uppercase mb-4">
+        <div className="section-label flex items-center gap-2.5 font-mono text-[11px] font-medium text-muted-foreground tracking-[0.12em] uppercase mb-4">
           Usage
         </div>
         <CodeBlock filename="app/page.tsx" code={transition.usageCode} />

@@ -12,7 +12,7 @@ export function InstallSection({ slug, manualFiles }: InstallSectionProps) {
   const [tab, setTab] = useState<"npx" | "manual">("npx")
   const [copied, setCopied] = useState(false)
 
-  const npxCommand = `npx shft add ${slug}`
+  const npxCommand = `npx segue add ${slug}`
 
   const copy = () => {
     navigator.clipboard.writeText(npxCommand)
@@ -30,8 +30,8 @@ export function InstallSection({ slug, manualFiles }: InstallSectionProps) {
             onClick={() => setTab(t)}
             className={`font-mono text-[12px] px-4 py-1.5 rounded-t-md border border-b-0 cursor-pointer transition-colors duration-150
               ${tab === t
-                ? "bg-surface text-text border-border"
-                : "bg-transparent text-muted border-border hover:text-text"
+                ? "bg-card text-foreground border-border"
+                : "bg-transparent text-muted-foreground border-border hover:text-foreground"
               }`}
           >
             {t}
@@ -41,15 +41,15 @@ export function InstallSection({ slug, manualFiles }: InstallSectionProps) {
 
       {/* npx tab */}
       {tab === "npx" && (
-        <div className="bg-surface border border-border rounded-tr-lg rounded-b-lg overflow-hidden">
+        <div className="bg-card border border-border rounded-tr-lg rounded-b-lg overflow-hidden">
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-border">
-            <span className="font-mono text-[11px] text-muted">terminal</span>
+            <span className="font-mono text-[11px] text-muted-foreground">terminal</span>
             <button
               onClick={copy}
               className={`font-mono text-[11px] px-2.5 py-0.5 rounded border cursor-pointer transition-colors duration-150
                 ${copied
                   ? "border-accent text-accent"
-                  : "border-border text-muted hover:border-accent hover:text-accent"
+                  : "border-border text-muted-foreground hover:border-accent hover:text-accent"
                 }`}
             >
               {copied ? "copied!" : "copy"}

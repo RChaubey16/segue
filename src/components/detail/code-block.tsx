@@ -26,15 +26,15 @@ export function CodeBlock({ filename, code }: CodeBlockProps) {
   }
 
   return (
-    <div className="bg-surface border border-border rounded-tr-lg rounded-b-lg overflow-hidden">
+    <div className="bg-card border border-border rounded-tr-lg rounded-b-lg overflow-hidden">
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-border">
-        <span className="font-mono text-[11px] text-muted">{filename}</span>
+        <span className="font-mono text-[11px] text-muted-foreground">{filename}</span>
         <button
           onClick={copy}
           className={`font-mono text-[11px] px-2.5 py-0.5 rounded border cursor-pointer transition-colors duration-150
             ${copied
               ? "border-accent text-accent"
-              : "border-border text-muted hover:border-accent hover:text-accent"
+              : "border-border text-muted-foreground hover:border-accent hover:text-accent"
             }`}
         >
           {copied ? "copied!" : "copy"}
