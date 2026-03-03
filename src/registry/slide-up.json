@@ -1,0 +1,35 @@
+{
+  "slug": "slide-up",
+  "name": "Slide Up",
+  "description": "New page enters from below while the current page exits upward. Ideal for hierarchical navigation — feels like moving forward through a stack.",
+  "duration": "400ms",
+  "easing": "ease-out-quad",
+  "animOutClass": "slide-up-out",
+  "animInClass": "slide-up-in",
+  "demoAnimations": "@keyframes slide-up-out { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-40px); opacity: 0; } } @keyframes slide-up-in { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } } .slide-up-out { animation: slide-up-out 0.45s cubic-bezier(0.25,0.46,0.45,0.94) forwards; } .slide-up-in { animation: slide-up-in 0.45s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }",
+  "files": [
+    {
+      "path": "transitions/slide-up/transition.css",
+      "content": "@keyframes slide-up-in {\n  from { transform: translateY(100%); opacity: 0; }\n  to   { transform: translateY(0);    opacity: 1; }\n}\n@keyframes slide-up-out {\n  from { transform: translateY(0);     opacity: 1; }\n  to   { transform: translateY(-100%); opacity: 0; }\n}\n\nhtml.slide-up::view-transition-new(root) {\n  animation: slide-up-in 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.slide-up::view-transition-old(root) {\n  animation: slide-up-out 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "path": "transitions/slide-up/link.tsx",
+      "content": "import { TransitionLink } from \"@/components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideUpLink({ href, children, className }: {\n  href: string\n  children: React.ReactNode\n  className?: string\n}) {\n  return (\n    <TransitionLink\n      href={href}\n      transitionClass=\"slide-up\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    },
+    {
+      "path": "transitions/slide-up/index.ts",
+      "content": "export { SlideUpLink } from \"./link\""
+    }
+  ],
+  "manualFiles": [
+    {
+      "name": "transitions/slide-up/transition.css",
+      "code": "@keyframes slide-up-in {\n  from { transform: translateY(100%); opacity: 0; }\n  to   { transform: translateY(0);    opacity: 1; }\n}\n@keyframes slide-up-out {\n  from { transform: translateY(0);     opacity: 1; }\n  to   { transform: translateY(-100%); opacity: 0; }\n}\n\nhtml.slide-up::view-transition-new(root) {\n  animation: slide-up-in 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.slide-up::view-transition-old(root) {\n  animation: slide-up-out 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "name": "transitions/slide-up/link.tsx",
+      "code": "import { TransitionLink } from \"@/components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideUpLink({ href, children, className }) {\n  return (\n    <TransitionLink\n      href={href}\n      transitionClass=\"slide-up\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    }
+  ],
+  "usageCode": "import { SlideUpLink } from \"@/transitions/slide-up\"\n\nexport default function Page() {\n  return (\n    <SlideUpLink href=\"/about\">\n      Go to About\n    </SlideUpLink>\n  )\n}"
+}
