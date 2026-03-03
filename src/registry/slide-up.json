@@ -39,7 +39,7 @@
     },
     {
       "path": "transitions/slide-up/link.tsx",
-      "content": "import { TransitionLink } from \"../components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideUpLink({ to, children, className }: {\n  to: string\n  children: React.ReactNode\n  className?: string\n}) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"slide-up\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+      "content": "import { TransitionLink } from \"../../components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideUpLink({ to, children, className }: {\n  to: string\n  children: React.ReactNode\n  className?: string\n}) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"slide-up\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
     },
     {
       "path": "transitions/slide-up/index.ts",
@@ -53,7 +53,7 @@
     },
     {
       "name": "transitions/slide-up/link.tsx",
-      "code": "import { TransitionLink } from \"../components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideUpLink({ to, children, className }) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"slide-up\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+      "code": "import { TransitionLink } from \"../../components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideUpLink({ to, children, className }) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"slide-up\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
     }
   ],
   "reactUsageCode": "import { SlideUpLink } from \"./transitions/slide-up\"\n\nfunction App() {\n  return (\n    <SlideUpLink to=\"/about\">\n      Go to About\n    </SlideUpLink>\n  )\n}"
