@@ -172,14 +172,23 @@
 }
 
 /* ── Syntax highlight (injected via dangerouslySetInnerHTML) ── */
-.kw {
-  color: #c8f135;
+.hl-kw {
+  color: #9a6700;
 }
-.st {
+.hl-st {
+  color: #0a3069;
+}
+.hl-cm {
+  color: #6b7280;
+}
+.dark .hl-kw {
+  color: #d4bc8b;
+}
+.dark .hl-st {
   color: #a5d6ff;
 }
-.cm {
-  color: #555;
+.dark .hl-cm {
+  color: #6b7280;
 }
 
 /* ── Section label divider ── */

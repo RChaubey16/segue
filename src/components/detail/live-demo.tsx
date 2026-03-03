@@ -39,57 +39,107 @@ export function LiveDemo({ slug, animOutClass, animInClass }: LiveDemoProps) {
   }
 
   return (
-    <div className="bg-card border-border overflow-hidden rounded-xl border">
-      {/* Toolbar */}
-      <div className="border-border flex items-center justify-between border-b px-4 py-3">
+    <div className="overflow-hidden rounded-xl border border-border bg-card">
+      {/* Browser chrome */}
+      <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <div className="flex gap-1.5">
-          <i className="bg-border block h-2.5 w-2.5 rounded-full not-italic" />
-          <i className="bg-border block h-2.5 w-2.5 rounded-full not-italic" />
-          <i className="bg-border block h-2.5 w-2.5 rounded-full not-italic" />
+          <i className="block h-2.5 w-2.5 rounded-full bg-border not-italic" />
+          <i className="block h-2.5 w-2.5 rounded-full bg-border not-italic" />
+          <i className="block h-2.5 w-2.5 rounded-full bg-border not-italic" />
         </div>
-        <span className="text-muted-foreground bg-background border-border rounded-md border px-3 py-1 font-mono text-[11px]">
+        <span className="rounded-md border border-border bg-background px-3 py-1 font-mono text-[11px] text-muted-foreground">
           segue.dev/demo/{slug}
         </span>
         <button
           onClick={replay}
-          className="text-muted-foreground border-border hover:border-accent hover:text-accent cursor-pointer rounded-md border bg-transparent px-2.5 py-1 font-mono text-[11px] transition-colors duration-150"
+          className="cursor-pointer rounded-md border border-border bg-transparent px-2.5 py-1 font-mono text-[11px] text-muted-foreground transition-colors duration-150 hover:border-accent hover:text-accent"
         >
           ↺ replay
         </button>
       </div>
 
       {/* Viewport */}
-      <div className="relative h-80 overflow-hidden">
+      <div className="relative h-80 overflow-hidden bg-background">
+        {/* Page A — Home */}
         {screen === "a" && (
           <div
-            className={`absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#111] ${aClass}`}
+            className={`absolute inset-0 flex flex-col bg-background ${aClass}`}
           >
-            <span className="text-muted-foreground font-mono text-[11px] tracking-wider">
-              page one
-            </span>
-            <span className="font-serif text-[28px] font-extrabold">Home</span>
-            <button
-              onClick={() => navigate("b")}
-              className="bg-accent text-background mt-2 cursor-pointer rounded-md border-none px-5 py-2 font-mono text-[12px] font-medium"
-            >
-              Navigate →
-            </button>
+            {/* Mini nav */}
+            <div className="flex items-center justify-between border-b border-border px-6 py-3">
+              <span className="font-serif text-sm font-bold text-foreground">
+                myapp
+              </span>
+              <div className="flex gap-4 font-mono text-[11px] text-muted-foreground">
+                <span className="text-foreground">Home</span>
+                <button
+                  onClick={() => navigate("b")}
+                  className="cursor-pointer border-none bg-transparent p-0 text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  About
+                </button>
+              </div>
+            </div>
+            {/* Content */}
+            <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                Home
+              </span>
+              <span className="font-serif text-2xl font-extrabold text-foreground">
+                Welcome
+              </span>
+              <p className="max-w-[280px] text-center text-xs leading-relaxed text-muted-foreground">
+                This is the home page. Click About to see the transition.
+              </p>
+              <button
+                onClick={() => navigate("b")}
+                className="mt-2 cursor-pointer rounded-md border-none bg-accent px-5 py-2 font-mono text-[12px] font-medium text-accent-foreground"
+              >
+                Go to About
+              </button>
+            </div>
           </div>
         )}
+
+        {/* Page B — About */}
         {screen === "b" && (
           <div
-            className={`absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#0a0f1e] ${bClass}`}
+            className={`absolute inset-0 flex flex-col bg-background ${bClass}`}
           >
-            <span className="text-muted-foreground font-mono text-[11px] tracking-wider">
-              page two
-            </span>
-            <span className="font-serif text-[28px] font-extrabold">About</span>
-            <button
-              onClick={() => navigate("a")}
-              className="bg-accent text-background mt-2 cursor-pointer rounded-md border-none px-5 py-2 font-mono text-[12px] font-medium"
-            >
-              ← Go back
-            </button>
+            {/* Mini nav */}
+            <div className="flex items-center justify-between border-b border-border px-6 py-3">
+              <span className="font-serif text-sm font-bold text-foreground">
+                myapp
+              </span>
+              <div className="flex gap-4 font-mono text-[11px] text-muted-foreground">
+                <button
+                  onClick={() => navigate("a")}
+                  className="cursor-pointer border-none bg-transparent p-0 text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  Home
+                </button>
+                <span className="text-foreground">About</span>
+              </div>
+            </div>
+            {/* Content */}
+            <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                About
+              </span>
+              <span className="font-serif text-2xl font-extrabold text-foreground">
+                Our Story
+              </span>
+              <p className="max-w-[280px] text-center text-xs leading-relaxed text-muted-foreground">
+                This is the about page. The transition you saw is what your
+                users will experience.
+              </p>
+              <button
+                onClick={() => navigate("a")}
+                className="mt-2 cursor-pointer rounded-md border-none bg-accent px-5 py-2 font-mono text-[12px] font-medium text-accent-foreground"
+              >
+                Back to Home
+              </button>
+            </div>
           </div>
         )}
       </div>

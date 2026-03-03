@@ -57,7 +57,7 @@ export function InstallSection({ slug, manualFiles }: InstallSectionProps) {
               {copied ? "copied!" : "copy"}
             </button>
           </div>
-          <pre className="p-5 font-mono text-[13px] leading-[1.7] text-[#c9d1d9]">
+          <pre className="p-5 font-mono text-[13px] leading-[1.7] text-foreground">
             {npxCommand}
           </pre>
         </div>
