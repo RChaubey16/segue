@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Segue
 
-## Getting Started
+Page transitions, ready to drop in.
 
-First, run the development server:
+Segue is a collection of animated page transitions for **Next.js** and **React**, built on the native [View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API). No animation libraries. No layout thrashing. Just CSS.
+
+## Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx segue add slide-right
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then use it in your app:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```tsx
+import { SlideRightLink } from "@/transitions/slide-right/link"
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+export default function Page() {
+  return <SlideRightLink href="/about">Go to About</SlideRightLink>
+}
+```
 
-## Learn More
+That's it. Your pages now transition with a slide animation.
 
-To learn more about Next.js, take a look at the following resources:
+## How It Works
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Pick a transition** — Browse the collection and find the motion that fits your app.
+2. **Install it** — One `npx` command copies the component and CSS into your project.
+3. **Wrap your links** — Replace your `<Link>` with the transition component. Done.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Under the hood, Segue uses the View Transition API:
 
-## Deploy on Vercel
+- A click on the transition link adds a CSS class to the `<html>` element
+- `document.startViewTransition()` triggers the navigation
+- CSS `::view-transition-old` and `::view-transition-new` pseudo-elements handle the animation
+- The class is removed after the animation completes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Available Transitions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Transition    | Description                                                       |
+| ------------- | ----------------------------------------------------------------- |
+| `slide-right` | New page enters from the right, old page exits to the left        |
+| `slide-up`    | New page enters from the bottom, old page exits toward the top    |
+
+## Framework Support
+
+Segue supports both Next.js and React.
+
+**Next.js** (App Router):
+
+```tsx
+import { SlideRightLink } from "@/transitions/slide-right/link"
+
+<SlideRightLink href="/about">About</SlideRightLink>
+```
+
+**React** (React Router):
+
+```tsx
+import { SlideRightLink } from "@/transitions/slide-right/link"
+
+<SlideRightLink to="/about">About</SlideRightLink>
+```
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── layout.tsx              # Root layout with sidebar and theme
+│   ├── page.tsx                # Home page
+│   ├── demo/page.tsx           # Live demo page
+│   ├── registry/[slug]/        # API endpoint for CLI
+│   └── transitions/
+│       ├── page.tsx            # Transitions listing
+│       └── [slug]/page.tsx     # Transition detail page
+├── components/
+│   ├── transition-link.tsx     # Core transition trigger component
+│   ├── transition-card.tsx     # Transition preview card
+│   ├── quick-start.tsx         # Quick start code snippets
+│   ├── sidebar.tsx             # Navigation sidebar
+│   └── detail/                 # Transition detail page components
+├── lib/
+│   ├── registry.ts             # Reads and exposes transition metadata
+│   └── utils.ts                # Utility functions
+├── registry/                   # Transition metadata (JSON)
+│   ├── slide-right.json
+│   └── slide-up.json
+└── transitions/                # Transition source files
+    ├── slide-right/
+    │   ├── link.tsx            # Drop-in link component
+    │   └── transition.css      # Animation keyframes
+    └── slide-up/
+        ├── link.tsx
+        └── transition.css
+```
+
+## Development
+
+**Prerequisites:** Node.js and [pnpm](https://pnpm.io/)
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start the dev server
+pnpm dev
+
+# Lint
+pnpm lint
+
+# Format
+pnpm format
+```
+
+## Tech Stack
+
+- [Next.js 16](https://nextjs.org/) — App Router, React Server Components
+- [React 19](https://react.dev/)
+- [Tailwind CSS v4](https://tailwindcss.com/)
+- [View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API) — Native browser transitions
+- [next-themes](https://github.com/pacocoursey/next-themes) — Dark mode support
+- [Lucide](https://lucide.dev/) — Icons
+
+## License
+
+Open source.
