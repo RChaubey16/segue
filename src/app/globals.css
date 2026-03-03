@@ -198,3 +198,16 @@
   height: 1px;
   background: var(--border);
 }
+
+
+/* Global text selection color */
+::selection {
+  background: var(--primary); /* highlight color */
+  color: black;      /* text color */
+}
+
+/* Firefox support */
+::-moz-selection {
+  background: var(--primary);
+  color: black;
+}
