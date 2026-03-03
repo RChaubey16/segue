@@ -1,0 +1,68 @@
+{
+  "slug": "slide-left",
+  "name": "Slide Left",
+  "description": "New page enters from the left while the current page exits rightward. Perfect for back-navigation or reversing through a stack.",
+  "duration": "400ms",
+  "easing": "ease-out-quad",
+  "animOutClass": "slide-left-out",
+  "animInClass": "slide-left-in",
+  "demoAnimations": "@keyframes slide-left-out { from { transform: translateX(0); opacity: 1; } to { transform: translateX(40px); opacity: 0; } } @keyframes slide-left-in { from { transform: translateX(-40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } } .slide-left-out { animation: slide-left-out 0.45s cubic-bezier(0.25,0.46,0.45,0.94) forwards; } .slide-left-in { animation: slide-left-in 0.45s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }",
+  "files": [
+    {
+      "path": "transitions/slide-left/transition.css",
+      "content": "@keyframes slide-left-in {\n  from { transform: translateX(-100%); opacity: 0; }\n  to   { transform: translateX(0);     opacity: 1; }\n}\n@keyframes slide-left-out {\n  from { transform: translateX(0);     opacity: 1; }\n  to   { transform: translateX(100%);  opacity: 0; }\n}\n\nhtml.slide-left::view-transition-new(root) {\n  animation: slide-left-in 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.slide-left::view-transition-old(root) {\n  animation: slide-left-out 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "path": "transitions/slide-left/link.tsx",
+      "content": "import { TransitionLink } from \"@/components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideLeftLink({ href, children, className }: {\n  href: string\n  children: React.ReactNode\n  className?: string\n}) {\n  return (\n    <TransitionLink\n      href={href}\n      transitionClass=\"slide-left\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    },
+    {
+      "path": "transitions/slide-left/index.ts",
+      "content": "export { SlideLeftLink } from \"./link\""
+    }
+  ],
+  "manualFiles": [
+    {
+      "name": "components/transition-link.tsx",
+      "code": "\"use client\"\n\nimport Link, { LinkProps } from \"next/link\"\nimport { useRouter } from \"next/navigation\"\nimport { MouseEvent, ReactNode } from \"react\"\n\ninterface TransitionLinkProps extends LinkProps {\n  children: ReactNode\n  className?: string\n  transitionClass: string\n}\n\nexport function TransitionLink({\n  href,\n  children,\n  className,\n  transitionClass,\n  ...props\n}: TransitionLinkProps) {\n  const router = useRouter()\n\n  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {\n    if (\n      e.button !== 0 ||\n      e.ctrlKey ||\n      e.metaKey ||\n      e.shiftKey ||\n      e.altKey\n    ) {\n      return\n    }\n\n    const isExternal = href.toString().startsWith(\"http\") || href.toString().startsWith(\"//\")\n    if (isExternal) return\n\n    e.preventDefault()\n\n    if (!(document as any).startViewTransition) {\n      router.push(href.toString())\n      return\n    }\n\n    document.documentElement.classList.add(transitionClass)\n\n    ;(document as any).startViewTransition(() => {\n      router.push(href.toString())\n    }).finished.finally(() => {\n      document.documentElement.classList.remove(transitionClass)\n    })\n  }\n\n  return (\n    <Link href={href} onClick={handleClick} className={className} {...props}>\n      {children}\n    </Link>\n  )\n}"
+    },
+    {
+      "name": "transitions/slide-left/transition.css",
+      "code": "@keyframes slide-left-in {\n  from { transform: translateX(-100%); opacity: 0; }\n  to   { transform: translateX(0);     opacity: 1; }\n}\n@keyframes slide-left-out {\n  from { transform: translateX(0);     opacity: 1; }\n  to   { transform: translateX(100%);  opacity: 0; }\n}\n\nhtml.slide-left::view-transition-new(root) {\n  animation: slide-left-in 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.slide-left::view-transition-old(root) {\n  animation: slide-left-out 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "name": "transitions/slide-left/link.tsx",
+      "code": "import { TransitionLink } from \"@/components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideLeftLink({ href, children, className }) {\n  return (\n    <TransitionLink\n      href={href}\n      transitionClass=\"slide-left\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    }
+  ],
+  "usageCode": "import { SlideLeftLink } from \"@/transitions/slide-left\"\n\nexport default function Page() {\n  return (\n    <SlideLeftLink href=\"/about\">\n      Go to About\n    </SlideLeftLink>\n  )\n}",
+  "reactFiles": [
+    {
+      "path": "transitions/slide-left/transition.css",
+      "content": "@keyframes slide-left-in {\n  from { transform: translateX(-100%); opacity: 0; }\n  to   { transform: translateX(0);     opacity: 1; }\n}\n@keyframes slide-left-out {\n  from { transform: translateX(0);     opacity: 1; }\n  to   { transform: translateX(100%);  opacity: 0; }\n}\n\nhtml.slide-left::view-transition-new(root) {\n  animation: slide-left-in 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.slide-left::view-transition-old(root) {\n  animation: slide-left-out 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "path": "transitions/slide-left/link.tsx",
+      "content": "import { TransitionLink } from \"../../components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideLeftLink({ to, children, className }: {\n  to: string\n  children: React.ReactNode\n  className?: string\n}) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"slide-left\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    },
+    {
+      "path": "transitions/slide-left/index.ts",
+      "content": "export { SlideLeftLink } from \"./link\""
+    }
+  ],
+  "reactManualFiles": [
+    {
+      "name": "components/transition-link.tsx",
+      "code": "import { Link, LinkProps, useNavigate } from \"react-router-dom\"\nimport { MouseEvent, ReactNode } from \"react\"\n\ninterface TransitionLinkProps extends Pick<LinkProps, \"to\"> {\n  children: ReactNode\n  className?: string\n  transitionClass: string\n}\n\nexport function TransitionLink({\n  to,\n  children,\n  className,\n  transitionClass,\n  ...props\n}: TransitionLinkProps) {\n  const navigate = useNavigate()\n\n  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {\n    if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return\n\n    const isExternal = to.toString().startsWith(\"http\") || to.toString().startsWith(\"//\")\n    if (isExternal) return\n\n    e.preventDefault()\n\n    if (!(document as any).startViewTransition) {\n      navigate(to.toString())\n      return\n    }\n\n    document.documentElement.classList.add(transitionClass)\n\n    ;(document as any).startViewTransition(() => {\n      navigate(to.toString())\n    }).finished.finally(() => {\n      document.documentElement.classList.remove(transitionClass)\n    })\n  }\n\n  return (\n    <Link to={to} onClick={handleClick} className={className} {...props}>\n      {children}\n    </Link>\n  )\n}"
+    },
+    {
+      "name": "transitions/slide-left/transition.css",
+      "code": "@keyframes slide-left-in {\n  from { transform: translateX(-100%); opacity: 0; }\n  to   { transform: translateX(0);     opacity: 1; }\n}\n@keyframes slide-left-out {\n  from { transform: translateX(0);     opacity: 1; }\n  to   { transform: translateX(100%);  opacity: 0; }\n}\n\nhtml.slide-left::view-transition-new(root) {\n  animation: slide-left-in 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.slide-left::view-transition-old(root) {\n  animation: slide-left-out 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "name": "transitions/slide-left/link.tsx",
+      "code": "import { TransitionLink } from \"../../components/transition-link\"\nimport \"./transition.css\"\n\nexport function SlideLeftLink({ to, children, className }) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"slide-left\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    }
+  ],
+  "reactUsageCode": "import { SlideLeftLink } from \"./transitions/slide-left\"\n\nfunction App() {\n  return (\n    <SlideLeftLink to=\"/about\">\n      Go to About\n    </SlideLeftLink>\n  )\n}"
+}

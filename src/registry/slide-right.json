@@ -23,6 +23,10 @@
   ],
   "manualFiles": [
     {
+      "name": "components/transition-link.tsx",
+      "code": "\"use client\"\n\nimport Link, { LinkProps } from \"next/link\"\nimport { useRouter } from \"next/navigation\"\nimport { MouseEvent, ReactNode } from \"react\"\n\ninterface TransitionLinkProps extends LinkProps {\n  children: ReactNode\n  className?: string\n  transitionClass: string\n}\n\nexport function TransitionLink({\n  href,\n  children,\n  className,\n  transitionClass,\n  ...props\n}: TransitionLinkProps) {\n  const router = useRouter()\n\n  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {\n    if (\n      e.button !== 0 ||\n      e.ctrlKey ||\n      e.metaKey ||\n      e.shiftKey ||\n      e.altKey\n    ) {\n      return\n    }\n\n    const isExternal = href.toString().startsWith(\"http\") || href.toString().startsWith(\"//\")\n    if (isExternal) return\n\n    e.preventDefault()\n\n    if (!(document as any).startViewTransition) {\n      router.push(href.toString())\n      return\n    }\n\n    document.documentElement.classList.add(transitionClass)\n\n    ;(document as any).startViewTransition(() => {\n      router.push(href.toString())\n    }).finished.finally(() => {\n      document.documentElement.classList.remove(transitionClass)\n    })\n  }\n\n  return (\n    <Link href={href} onClick={handleClick} className={className} {...props}>\n      {children}\n    </Link>\n  )\n}"
+    },
+    {
       "name": "transitions/slide-right/transition.css",
       "code": "@keyframes slide-right-in {\n  from { transform: translateX(100%); opacity: 0; }\n  to   { transform: translateX(0);    opacity: 1; }\n}\n@keyframes slide-right-out {\n  from { transform: translateX(0);     opacity: 1; }\n  to   { transform: translateX(-100%); opacity: 0; }\n}\n\nhtml.slide-right::view-transition-new(root) {\n  animation: slide-right-in 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.slide-right::view-transition-old(root) {\n  animation: slide-right-out 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
     },
@@ -47,6 +51,10 @@
     }
   ],
   "reactManualFiles": [
+    {
+      "name": "components/transition-link.tsx",
+      "code": "import { Link, LinkProps, useNavigate } from \"react-router-dom\"\nimport { MouseEvent, ReactNode } from \"react\"\n\ninterface TransitionLinkProps extends Pick<LinkProps, \"to\"> {\n  children: ReactNode\n  className?: string\n  transitionClass: string\n}\n\nexport function TransitionLink({\n  to,\n  children,\n  className,\n  transitionClass,\n  ...props\n}: TransitionLinkProps) {\n  const navigate = useNavigate()\n\n  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {\n    if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return\n\n    const isExternal = to.toString().startsWith(\"http\") || to.toString().startsWith(\"//\")\n    if (isExternal) return\n\n    e.preventDefault()\n\n    if (!(document as any).startViewTransition) {\n      navigate(to.toString())\n      return\n    }\n\n    document.documentElement.classList.add(transitionClass)\n\n    ;(document as any).startViewTransition(() => {\n      navigate(to.toString())\n    }).finished.finally(() => {\n      document.documentElement.classList.remove(transitionClass)\n    })\n  }\n\n  return (\n    <Link to={to} onClick={handleClick} className={className} {...props}>\n      {children}\n    </Link>\n  )\n}"
+    },
     {
       "name": "transitions/slide-right/transition.css",
       "code": "@keyframes slide-right-in {\n  from { transform: translateX(100%); opacity: 0; }\n  to   { transform: translateX(0);    opacity: 1; }\n}\n@keyframes slide-right-out {\n  from { transform: translateX(0);     opacity: 1; }\n  to   { transform: translateX(-100%); opacity: 0; }\n}\n\nhtml.slide-right::view-transition-new(root) {\n  animation: slide-right-in 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.slide-right::view-transition-old(root) {\n  animation: slide-right-out 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"

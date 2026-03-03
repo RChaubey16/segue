@@ -1,0 +1,1 @@
+export { FadeInLink } from "./link"

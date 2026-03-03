@@ -1,0 +1,68 @@
+{
+  "slug": "fade-in",
+  "name": "Fade In",
+  "description": "New page gently fades in while the current page fades out. A subtle, universal transition that works well for any navigation pattern.",
+  "duration": "400ms",
+  "easing": "ease-out-quad",
+  "animOutClass": "fade-in-exit",
+  "animInClass": "fade-in-enter",
+  "demoAnimations": "@keyframes fade-in-exit { from { opacity: 1; } to { opacity: 0; } } @keyframes fade-in-enter { from { opacity: 0; } to { opacity: 1; } } .fade-in-exit { animation: fade-in-exit 0.45s cubic-bezier(0.25,0.46,0.45,0.94) forwards; } .fade-in-enter { animation: fade-in-enter 0.45s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }",
+  "files": [
+    {
+      "path": "transitions/fade-in/transition.css",
+      "content": "@keyframes fade-in-enter {\n  from { opacity: 0; }\n  to   { opacity: 1; }\n}\n@keyframes fade-in-exit {\n  from { opacity: 1; }\n  to   { opacity: 0; }\n}\n\nhtml.fade-in::view-transition-new(root) {\n  animation: fade-in-enter 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.fade-in::view-transition-old(root) {\n  animation: fade-in-exit 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "path": "transitions/fade-in/link.tsx",
+      "content": "import { TransitionLink } from \"@/components/transition-link\"\nimport \"./transition.css\"\n\nexport function FadeInLink({ href, children, className }: {\n  href: string\n  children: React.ReactNode\n  className?: string\n}) {\n  return (\n    <TransitionLink\n      href={href}\n      transitionClass=\"fade-in\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    },
+    {
+      "path": "transitions/fade-in/index.ts",
+      "content": "export { FadeInLink } from \"./link\""
+    }
+  ],
+  "manualFiles": [
+    {
+      "name": "components/transition-link.tsx",
+      "code": "\"use client\"\n\nimport Link, { LinkProps } from \"next/link\"\nimport { useRouter } from \"next/navigation\"\nimport { MouseEvent, ReactNode } from \"react\"\n\ninterface TransitionLinkProps extends LinkProps {\n  children: ReactNode\n  className?: string\n  transitionClass: string\n}\n\nexport function TransitionLink({\n  href,\n  children,\n  className,\n  transitionClass,\n  ...props\n}: TransitionLinkProps) {\n  const router = useRouter()\n\n  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {\n    if (\n      e.button !== 0 ||\n      e.ctrlKey ||\n      e.metaKey ||\n      e.shiftKey ||\n      e.altKey\n    ) {\n      return\n    }\n\n    const isExternal = href.toString().startsWith(\"http\") || href.toString().startsWith(\"//\")\n    if (isExternal) return\n\n    e.preventDefault()\n\n    if (!(document as any).startViewTransition) {\n      router.push(href.toString())\n      return\n    }\n\n    document.documentElement.classList.add(transitionClass)\n\n    ;(document as any).startViewTransition(() => {\n      router.push(href.toString())\n    }).finished.finally(() => {\n      document.documentElement.classList.remove(transitionClass)\n    })\n  }\n\n  return (\n    <Link href={href} onClick={handleClick} className={className} {...props}>\n      {children}\n    </Link>\n  )\n}"
+    },
+    {
+      "name": "transitions/fade-in/transition.css",
+      "code": "@keyframes fade-in-enter {\n  from { opacity: 0; }\n  to   { opacity: 1; }\n}\n@keyframes fade-in-exit {\n  from { opacity: 1; }\n  to   { opacity: 0; }\n}\n\nhtml.fade-in::view-transition-new(root) {\n  animation: fade-in-enter 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.fade-in::view-transition-old(root) {\n  animation: fade-in-exit 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "name": "transitions/fade-in/link.tsx",
+      "code": "import { TransitionLink } from \"@/components/transition-link\"\nimport \"./transition.css\"\n\nexport function FadeInLink({ href, children, className }) {\n  return (\n    <TransitionLink\n      href={href}\n      transitionClass=\"fade-in\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    }
+  ],
+  "usageCode": "import { FadeInLink } from \"@/transitions/fade-in\"\n\nexport default function Page() {\n  return (\n    <FadeInLink href=\"/about\">\n      Go to About\n    </FadeInLink>\n  )\n}",
+  "reactFiles": [
+    {
+      "path": "transitions/fade-in/transition.css",
+      "content": "@keyframes fade-in-enter {\n  from { opacity: 0; }\n  to   { opacity: 1; }\n}\n@keyframes fade-in-exit {\n  from { opacity: 1; }\n  to   { opacity: 0; }\n}\n\nhtml.fade-in::view-transition-new(root) {\n  animation: fade-in-enter 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.fade-in::view-transition-old(root) {\n  animation: fade-in-exit 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "path": "transitions/fade-in/link.tsx",
+      "content": "import { TransitionLink } from \"../../components/transition-link\"\nimport \"./transition.css\"\n\nexport function FadeInLink({ to, children, className }: {\n  to: string\n  children: React.ReactNode\n  className?: string\n}) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"fade-in\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    },
+    {
+      "path": "transitions/fade-in/index.ts",
+      "content": "export { FadeInLink } from \"./link\""
+    }
+  ],
+  "reactManualFiles": [
+    {
+      "name": "components/transition-link.tsx",
+      "code": "import { Link, LinkProps, useNavigate } from \"react-router-dom\"\nimport { MouseEvent, ReactNode } from \"react\"\n\ninterface TransitionLinkProps extends Pick<LinkProps, \"to\"> {\n  children: ReactNode\n  className?: string\n  transitionClass: string\n}\n\nexport function TransitionLink({\n  to,\n  children,\n  className,\n  transitionClass,\n  ...props\n}: TransitionLinkProps) {\n  const navigate = useNavigate()\n\n  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {\n    if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return\n\n    const isExternal = to.toString().startsWith(\"http\") || to.toString().startsWith(\"//\")\n    if (isExternal) return\n\n    e.preventDefault()\n\n    if (!(document as any).startViewTransition) {\n      navigate(to.toString())\n      return\n    }\n\n    document.documentElement.classList.add(transitionClass)\n\n    ;(document as any).startViewTransition(() => {\n      navigate(to.toString())\n    }).finished.finally(() => {\n      document.documentElement.classList.remove(transitionClass)\n    })\n  }\n\n  return (\n    <Link to={to} onClick={handleClick} className={className} {...props}>\n      {children}\n    </Link>\n  )\n}"
+    },
+    {
+      "name": "transitions/fade-in/transition.css",
+      "code": "@keyframes fade-in-enter {\n  from { opacity: 0; }\n  to   { opacity: 1; }\n}\n@keyframes fade-in-exit {\n  from { opacity: 1; }\n  to   { opacity: 0; }\n}\n\nhtml.fade-in::view-transition-new(root) {\n  animation: fade-in-enter 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}\nhtml.fade-in::view-transition-old(root) {\n  animation: fade-in-exit 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;\n}"
+    },
+    {
+      "name": "transitions/fade-in/link.tsx",
+      "code": "import { TransitionLink } from \"../../components/transition-link\"\nimport \"./transition.css\"\n\nexport function FadeInLink({ to, children, className }) {\n  return (\n    <TransitionLink\n      to={to}\n      transitionClass=\"fade-in\"\n      className={className}\n    >\n      {children}\n    </TransitionLink>\n  )\n}"
+    }
+  ],
+  "reactUsageCode": "import { FadeInLink } from \"./transitions/fade-in\"\n\nfunction App() {\n  return (\n    <FadeInLink to=\"/about\">\n      Go to About\n    </FadeInLink>\n  )\n}"
+}

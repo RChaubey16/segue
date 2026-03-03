@@ -1,0 +1,31 @@
+/* Slide Down — new page enters from top, old page exits downward */
+
+@keyframes slide-down-in {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+html.slide-down::view-transition-new(root) {
+  animation: slide-down-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+html.slide-down::view-transition-old(root) {
+  animation: slide-down-out 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
