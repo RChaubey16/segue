@@ -35,8 +35,57 @@ export default async function Home() {
         </p>
       </div>
 
-      {/* How it works */}
+      {/* Why Segue exists */}
       <div className="animate-fade-up mb-16 [animation-delay:80ms]">
+        <div className="section-label mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+          Why Segue exists
+        </div>
+        <div className="space-y-4 text-[15px] leading-relaxed text-muted-foreground">
+          <p>
+            The{" "}
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-accent"
+            >
+              View Transition API
+            </a>{" "}
+            ships in every major browser. It&apos;s the platform-native way to animate between
+            pages — no JavaScript animation runtime, no layout recalculations, no jank. But wiring
+            it into a React or Next.js app still means writing boilerplate:{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-[13px]">
+              startViewTransition
+            </code>{" "}
+            calls, CSS pseudo-element rules, router integration, and cleanup logic.
+          </p>
+          <p>
+            Animation libraries like Framer Motion and GSAP are powerful, but they solve a broader
+            problem. Pulling in a full animation runtime just for page transitions adds bundle
+            weight and API surface you don&apos;t need.
+          </p>
+          <p>
+            Segue sits in the gap.{" "}
+            <span className="text-foreground font-medium">
+              Pre-built transitions that use the native API, installed as source code you own.
+            </span>{" "}
+            One command adds a component and a CSS file to your project — no dependency, no lock-in.
+            Think{" "}
+            <a
+              href="https://ui.shadcn.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-accent"
+            >
+              shadcn/ui
+            </a>
+            , but for page transitions.
+          </p>
+        </div>
+      </div>
+
+      {/* How it works */}
+      <div className="animate-fade-up mb-16 [animation-delay:120ms]">
         <div className="section-label mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
           How it works
         </div>
@@ -74,7 +123,7 @@ export default async function Home() {
       </div>
 
       {/* Quick start */}
-      <div className="animate-fade-up mb-16 [animation-delay:120ms]">
+      <div className="animate-fade-up mb-16 [animation-delay:160ms]">
         <div className="section-label mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
           Quick start
         </div>
@@ -82,7 +131,7 @@ export default async function Home() {
       </div>
 
       {/* Transitions */}
-      <div className="animate-fade-up [animation-delay:160ms]">
+      <div className="animate-fade-up [animation-delay:200ms]">
         <div className="section-label mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
           Transitions
         </div>

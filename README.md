@@ -4,6 +4,14 @@ Page transitions, ready to drop in.
 
 Segue is a collection of animated page transitions for **Next.js** and **React**, built on the native [View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API). No animation libraries. No layout thrashing. Just CSS.
 
+## Why Segue Exists
+
+The [View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API) ships in every major browser. It's the platform-native way to animate between pages — no JavaScript animation runtime, no layout recalculations, no jank. But wiring it into a React or Next.js app still means writing boilerplate: `startViewTransition` calls, CSS pseudo-element rules, router integration, and cleanup logic.
+
+Animation libraries like Framer Motion and GSAP are powerful, but they solve a broader problem. Pulling in a full animation runtime just for page transitions adds bundle weight and API surface you don't need.
+
+Segue sits in the gap. **Pre-built transitions that use the native API, installed as source code you own.** One command adds a component and a CSS file to your project — no dependency, no lock-in. Think [shadcn/ui](https://ui.shadcn.com), but for page transitions.
+
 ## Quick Start
 
 ```bash
