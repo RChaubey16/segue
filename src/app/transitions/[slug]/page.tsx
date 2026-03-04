@@ -1,6 +1,7 @@
+import { DarkModeDemo } from "@/components/detail/dark-mode-demo"
 import { FrameworkSections } from "@/components/detail/framework-sections"
-import { GridExpandDemo } from "@/components/detail/grid-expand-demo"
 import { LiveDemo } from "@/components/detail/live-demo"
+import { SharedElementDemo } from "@/components/detail/shared-element-demo"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
@@ -20,7 +21,8 @@ export async function generateStaticParams() {
     { slug: "slide-left" },
     { slug: "slide-right" },
     { slug: "scale" },
-    { slug: "grid-expand" },
+    { slug: "dark-mode" },
+    { slug: "shared-element" },
   ]
 }
 
@@ -99,8 +101,10 @@ export default async function TransitionDetailPage({
         <div className="section-label text-muted-foreground mb-4 flex items-center gap-2.5 font-mono text-[11px] font-medium tracking-[0.12em] uppercase">
           Demo
         </div>
-        {transition.demoType === "grid-expand" ? (
-          <GridExpandDemo />
+        {transition.demoType === "dark-mode" ? (
+          <DarkModeDemo />
+        ) : transition.demoType === "shared-element" ? (
+          <SharedElementDemo />
         ) : (
           <LiveDemo
             slug={slug}

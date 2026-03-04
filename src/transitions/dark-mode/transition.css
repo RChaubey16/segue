@@ -1,0 +1,27 @@
+/* Dark Mode — expanding circle reveals the new theme from the toggle button */
+
+html.dark-mode-toggle::view-transition-old(root) {
+  animation: none;
+  z-index: -1;
+}
+
+html.dark-mode-toggle::view-transition-new(root) {
+  animation: dm-expand 500ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  mix-blend-mode: normal;
+}
+
+@keyframes dm-expand {
+  from {
+    clip-path: circle(0px at var(--dm-x, 50%) var(--dm-y, 50%));
+  }
+  to {
+    clip-path: circle(200vmax at var(--dm-x, 50%) var(--dm-y, 50%));
+  }
+}
+
+/* Accessibility — respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html.dark-mode-toggle::view-transition-new(root) {
+    animation-duration: 0.01ms;
+  }
+}

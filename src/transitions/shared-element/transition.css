@@ -1,0 +1,50 @@
+/* ── Shared Element Transition ────────────────────────────────────────────
+   The named element morphs automatically — the browser interpolates
+   position, size, and shape. We define what happens to everything else.
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* The morphing element — smooth geometry interpolation */
+::view-transition-group(shared-element) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: clip;
+}
+
+::view-transition-old(shared-element),
+::view-transition-new(shared-element) {
+  animation: none;
+  mix-blend-mode: normal;
+  width: 100%;
+  height: 100%;
+}
+
+/* Disable the default whole-page cross-fade */
+::view-transition-old(root) {
+  animation: segue-shared-fade-out 0.2s ease forwards;
+}
+
+::view-transition-new(root) {
+  animation: segue-shared-fade-in 0.35s ease 0.15s both;
+}
+
+@keyframes segue-shared-fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes segue-shared-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Accessibility — respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(shared-element) {
+    animation-duration: 0.01ms;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.01ms;
+  }
+}

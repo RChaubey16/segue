@@ -1,0 +1,63 @@
+{
+  "slug": "dark-mode",
+  "name": "Dark Mode",
+  "description": "An expanding circle reveals the new theme, radiating outward from the toggle button. Uses the View Transition API with clip-path for a smooth, elegant dark mode switch.",
+  "duration": "500ms",
+  "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+  "animOutClass": "",
+  "animInClass": "",
+  "demoType": "dark-mode",
+  "demoAnimations": "",
+  "needsTransitionLink": false,
+  "components": ["DarkModeToggle"],
+  "files": [
+    {
+      "path": "transitions/dark-mode/transition.css",
+      "content": "/* Dark Mode — expanding circle reveals the new theme from the toggle button */\n\nhtml.dark-mode-toggle::view-transition-old(root) {\n  animation: none;\n  z-index: -1;\n}\n\nhtml.dark-mode-toggle::view-transition-new(root) {\n  animation: dm-expand 500ms cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  mix-blend-mode: normal;\n}\n\n@keyframes dm-expand {\n  from {\n    clip-path: circle(0px at var(--dm-x, 50%) var(--dm-y, 50%));\n  }\n  to {\n    clip-path: circle(200vmax at var(--dm-x, 50%) var(--dm-y, 50%));\n  }\n}\n\n/* Accessibility — respect reduced motion preference */\n@media (prefers-reduced-motion: reduce) {\n  html.dark-mode-toggle::view-transition-new(root) {\n    animation-duration: 0.01ms;\n  }\n}"
+    },
+    {
+      "path": "transitions/dark-mode/toggle.tsx",
+      "content": "\"use client\"\n\nimport { MouseEvent, ReactNode, useRef } from \"react\"\nimport \"./transition.css\"\n\ninterface DarkModeToggleProps {\n  onToggle: () => void\n  children: ReactNode\n  className?: string\n}\n\nexport function DarkModeToggle({\n  onToggle,\n  children,\n  className,\n}: DarkModeToggleProps) {\n  const ref = useRef<HTMLButtonElement>(null)\n\n  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {\n    const btn = ref.current\n    if (!btn) {\n      onToggle()\n      return\n    }\n\n    if (!(document as any).startViewTransition) {\n      onToggle()\n      return\n    }\n\n    const rect = btn.getBoundingClientRect()\n    const x = rect.left + rect.width / 2\n    const y = rect.top + rect.height / 2\n\n    document.documentElement.style.setProperty(\"--dm-x\", `${x}px`)\n    document.documentElement.style.setProperty(\"--dm-y\", `${y}px`)\n    document.documentElement.classList.add(\"dark-mode-toggle\")\n\n    const transition = (document as any).startViewTransition(() => {\n      onToggle()\n    })\n\n    transition.finished.finally(() => {\n      document.documentElement.classList.remove(\"dark-mode-toggle\")\n      document.documentElement.style.removeProperty(\"--dm-x\")\n      document.documentElement.style.removeProperty(\"--dm-y\")\n    })\n  }\n\n  return (\n    <button ref={ref} onClick={handleClick} className={className}>\n      {children}\n    </button>\n  )\n}"
+    },
+    {
+      "path": "transitions/dark-mode/index.ts",
+      "content": "export { DarkModeToggle } from \"./toggle\""
+    }
+  ],
+  "manualFiles": [
+    {
+      "name": "transitions/dark-mode/transition.css",
+      "code": "/* Dark Mode — expanding circle reveals the new theme from the toggle button */\n\nhtml.dark-mode-toggle::view-transition-old(root) {\n  animation: none;\n  z-index: -1;\n}\n\nhtml.dark-mode-toggle::view-transition-new(root) {\n  animation: dm-expand 500ms cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  mix-blend-mode: normal;\n}\n\n@keyframes dm-expand {\n  from {\n    clip-path: circle(0px at var(--dm-x, 50%) var(--dm-y, 50%));\n  }\n  to {\n    clip-path: circle(200vmax at var(--dm-x, 50%) var(--dm-y, 50%));\n  }\n}\n\n/* Accessibility — respect reduced motion preference */\n@media (prefers-reduced-motion: reduce) {\n  html.dark-mode-toggle::view-transition-new(root) {\n    animation-duration: 0.01ms;\n  }\n}"
+    },
+    {
+      "name": "transitions/dark-mode/toggle.tsx",
+      "code": "\"use client\"\n\nimport { MouseEvent, ReactNode, useRef } from \"react\"\nimport \"./transition.css\"\n\ninterface DarkModeToggleProps {\n  onToggle: () => void\n  children: ReactNode\n  className?: string\n}\n\nexport function DarkModeToggle({\n  onToggle,\n  children,\n  className,\n}: DarkModeToggleProps) {\n  const ref = useRef<HTMLButtonElement>(null)\n\n  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {\n    const btn = ref.current\n    if (!btn) {\n      onToggle()\n      return\n    }\n\n    if (!(document as any).startViewTransition) {\n      onToggle()\n      return\n    }\n\n    const rect = btn.getBoundingClientRect()\n    const x = rect.left + rect.width / 2\n    const y = rect.top + rect.height / 2\n\n    document.documentElement.style.setProperty(\"--dm-x\", `${x}px`)\n    document.documentElement.style.setProperty(\"--dm-y\", `${y}px`)\n    document.documentElement.classList.add(\"dark-mode-toggle\")\n\n    const transition = (document as any).startViewTransition(() => {\n      onToggle()\n    })\n\n    transition.finished.finally(() => {\n      document.documentElement.classList.remove(\"dark-mode-toggle\")\n      document.documentElement.style.removeProperty(\"--dm-x\")\n      document.documentElement.style.removeProperty(\"--dm-y\")\n    })\n  }\n\n  return (\n    <button ref={ref} onClick={handleClick} className={className}>\n      {children}\n    </button>\n  )\n}"
+    }
+  ],
+  "usageCode": "import { DarkModeToggle } from \"@/transitions/dark-mode\"\n\nexport default function ThemeSwitch() {\n  const toggleTheme = () => {\n    document.documentElement.classList.toggle(\"dark\")\n  }\n\n  return (\n    <DarkModeToggle onToggle={toggleTheme}>\n      🌓\n    </DarkModeToggle>\n  )\n}",
+  "reactFiles": [
+    {
+      "path": "transitions/dark-mode/transition.css",
+      "content": "/* Dark Mode — expanding circle reveals the new theme from the toggle button */\n\nhtml.dark-mode-toggle::view-transition-old(root) {\n  animation: none;\n  z-index: -1;\n}\n\nhtml.dark-mode-toggle::view-transition-new(root) {\n  animation: dm-expand 500ms cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  mix-blend-mode: normal;\n}\n\n@keyframes dm-expand {\n  from {\n    clip-path: circle(0px at var(--dm-x, 50%) var(--dm-y, 50%));\n  }\n  to {\n    clip-path: circle(200vmax at var(--dm-x, 50%) var(--dm-y, 50%));\n  }\n}\n\n/* Accessibility — respect reduced motion preference */\n@media (prefers-reduced-motion: reduce) {\n  html.dark-mode-toggle::view-transition-new(root) {\n    animation-duration: 0.01ms;\n  }\n}"
+    },
+    {
+      "path": "transitions/dark-mode/toggle.tsx",
+      "content": "import { MouseEvent, ReactNode, useRef } from \"react\"\nimport \"./transition.css\"\n\ninterface DarkModeToggleProps {\n  onToggle: () => void\n  children: ReactNode\n  className?: string\n}\n\nexport function DarkModeToggle({\n  onToggle,\n  children,\n  className,\n}: DarkModeToggleProps) {\n  const ref = useRef<HTMLButtonElement>(null)\n\n  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {\n    const btn = ref.current\n    if (!btn) {\n      onToggle()\n      return\n    }\n\n    if (!(document as any).startViewTransition) {\n      onToggle()\n      return\n    }\n\n    const rect = btn.getBoundingClientRect()\n    const x = rect.left + rect.width / 2\n    const y = rect.top + rect.height / 2\n\n    document.documentElement.style.setProperty(\"--dm-x\", `${x}px`)\n    document.documentElement.style.setProperty(\"--dm-y\", `${y}px`)\n    document.documentElement.classList.add(\"dark-mode-toggle\")\n\n    const transition = (document as any).startViewTransition(() => {\n      onToggle()\n    })\n\n    transition.finished.finally(() => {\n      document.documentElement.classList.remove(\"dark-mode-toggle\")\n      document.documentElement.style.removeProperty(\"--dm-x\")\n      document.documentElement.style.removeProperty(\"--dm-y\")\n    })\n  }\n\n  return (\n    <button ref={ref} onClick={handleClick} className={className}>\n      {children}\n    </button>\n  )\n}"
+    },
+    {
+      "path": "transitions/dark-mode/index.ts",
+      "content": "export { DarkModeToggle } from \"./toggle\""
+    }
+  ],
+  "reactManualFiles": [
+    {
+      "name": "transitions/dark-mode/transition.css",
+      "code": "/* Dark Mode — expanding circle reveals the new theme from the toggle button */\n\nhtml.dark-mode-toggle::view-transition-old(root) {\n  animation: none;\n  z-index: -1;\n}\n\nhtml.dark-mode-toggle::view-transition-new(root) {\n  animation: dm-expand 500ms cubic-bezier(0.4, 0, 0.2, 1) forwards;\n  mix-blend-mode: normal;\n}\n\n@keyframes dm-expand {\n  from {\n    clip-path: circle(0px at var(--dm-x, 50%) var(--dm-y, 50%));\n  }\n  to {\n    clip-path: circle(200vmax at var(--dm-x, 50%) var(--dm-y, 50%));\n  }\n}\n\n/* Accessibility — respect reduced motion preference */\n@media (prefers-reduced-motion: reduce) {\n  html.dark-mode-toggle::view-transition-new(root) {\n    animation-duration: 0.01ms;\n  }\n}"
+    },
+    {
+      "name": "transitions/dark-mode/toggle.tsx",
+      "code": "import { MouseEvent, ReactNode, useRef } from \"react\"\nimport \"./transition.css\"\n\ninterface DarkModeToggleProps {\n  onToggle: () => void\n  children: ReactNode\n  className?: string\n}\n\nexport function DarkModeToggle({\n  onToggle,\n  children,\n  className,\n}: DarkModeToggleProps) {\n  const ref = useRef<HTMLButtonElement>(null)\n\n  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {\n    const btn = ref.current\n    if (!btn) {\n      onToggle()\n      return\n    }\n\n    if (!(document as any).startViewTransition) {\n      onToggle()\n      return\n    }\n\n    const rect = btn.getBoundingClientRect()\n    const x = rect.left + rect.width / 2\n    const y = rect.top + rect.height / 2\n\n    document.documentElement.style.setProperty(\"--dm-x\", `${x}px`)\n    document.documentElement.style.setProperty(\"--dm-y\", `${y}px`)\n    document.documentElement.classList.add(\"dark-mode-toggle\")\n\n    const transition = (document as any).startViewTransition(() => {\n      onToggle()\n    })\n\n    transition.finished.finally(() => {\n      document.documentElement.classList.remove(\"dark-mode-toggle\")\n      document.documentElement.style.removeProperty(\"--dm-x\")\n      document.documentElement.style.removeProperty(\"--dm-y\")\n    })\n  }\n\n  return (\n    <button ref={ref} onClick={handleClick} className={className}>\n      {children}\n    </button>\n  )\n}"
+    }
+  ],
+  "reactUsageCode": "import { DarkModeToggle } from \"./transitions/dark-mode\"\n\nfunction ThemeSwitch() {\n  const toggleTheme = () => {\n    document.documentElement.classList.toggle(\"dark\")\n  }\n\n  return (\n    <DarkModeToggle onToggle={toggleTheme}>\n      🌓\n    </DarkModeToggle>\n  )\n}"
+}
