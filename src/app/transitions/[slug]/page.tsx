@@ -35,7 +35,7 @@ export default async function TransitionDetailPage({
   const transition = await getTransition(slug)
   if (!transition) notFound()
 
-  const category = String(transition.category + " Transition").toUpperCase();
+  const category = String(transition.category + " Transition").toUpperCase()
   const words = transition.name.split(" ")
   const firstWords = words.slice(0, -1).join(" ")
   const lastWord = words[words.length - 1]

@@ -46,11 +46,11 @@ function highlight(code: string): string {
       return t.text
         .replace(
           /\b(import|from|export|default|function|return|const|let|var)\b/g,
-          '<span class="hl-kw">$1</span>',
+          '<span class="hl-kw">$1</span>'
         )
         .replace(
           /(@keyframes|@import|animation:|transform:|opacity:|html\.)/g,
-          '<span class="hl-kw">$1</span>',
+          '<span class="hl-kw">$1</span>'
         )
     })
     .join("")
@@ -66,9 +66,9 @@ export function CodeBlock({ filename, code }: CodeBlockProps) {
   }
 
   return (
-    <div className="overflow-hidden rounded-tr-lg rounded-b-lg border border-border bg-card">
-      <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
-        <span className="font-mono text-[11px] text-muted-foreground">{filename}</span>
+    <div className="border-border bg-card overflow-hidden rounded-tr-lg rounded-b-lg border">
+      <div className="border-border flex items-center justify-between border-b px-4 py-2.5">
+        <span className="text-muted-foreground font-mono text-[11px]">{filename}</span>
         <button
           onClick={copy}
           className={`cursor-pointer rounded border px-2.5 py-0.5 font-mono text-[11px] transition-colors duration-150 ${
@@ -81,7 +81,7 @@ export function CodeBlock({ filename, code }: CodeBlockProps) {
         </button>
       </div>
       <pre
-        className="overflow-x-auto p-5 font-mono text-[13px] leading-[1.7] text-foreground"
+        className="text-foreground overflow-x-auto p-5 font-mono text-[13px] leading-[1.7]"
         dangerouslySetInnerHTML={{ __html: highlight(code) }}
       />
     </div>

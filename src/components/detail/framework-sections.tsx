@@ -27,7 +27,12 @@ export function FrameworkSections({
     <div>
       {/* Single framework selector */}
       <div className="animate-fade-up mb-8 flex gap-1.5 [animation-delay:140ms]">
-        {([["nextjs", "Next.js"], ["react", "React"]] as const).map(([key, label]) => (
+        {(
+          [
+            ["nextjs", "Next.js"],
+            ["react", "React"],
+          ] as const
+        ).map(([key, label]) => (
           <button
             key={key}
             onClick={() => setFramework(key)}

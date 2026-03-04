@@ -155,7 +155,7 @@ export default function Home() {
               className="border-border flex flex-col items-center gap-3 border-r p-5 last:border-r-0"
             >
               <Image src={b.icon} alt={b.name} width={32} height={32} />
-              <span className="text-foreground text-center text-[12px] font-medium leading-tight">
+              <span className="text-foreground text-center text-[12px] leading-tight font-medium">
                 {b.name}
               </span>
               {b.supported ? (

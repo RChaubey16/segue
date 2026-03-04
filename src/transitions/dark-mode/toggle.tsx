@@ -9,11 +9,7 @@ interface DarkModeToggleProps {
   className?: string
 }
 
-export function DarkModeToggle({
-  onToggle,
-  children,
-  className,
-}: DarkModeToggleProps) {
+export function DarkModeToggle({ onToggle, children, className }: DarkModeToggleProps) {
   const ref = useRef<HTMLButtonElement>(null)
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {

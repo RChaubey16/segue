@@ -10,12 +10,18 @@ interface InstallSectionProps {
   framework: "nextjs" | "react"
 }
 
-export function InstallSection({ slug, manualFiles, reactManualFiles, framework }: InstallSectionProps) {
+export function InstallSection({
+  slug,
+  manualFiles,
+  reactManualFiles,
+  framework,
+}: InstallSectionProps) {
   const [tab, setTab] = useState<"npx" | "manual">("npx")
   const [copied, setCopied] = useState(false)
 
   const npxCommand = `npx segue add ${slug}`
-  const activeManualFiles = framework === "react" && reactManualFiles ? reactManualFiles : manualFiles
+  const activeManualFiles =
+    framework === "react" && reactManualFiles ? reactManualFiles : manualFiles
 
   const copy = () => {
     navigator.clipboard.writeText(npxCommand)
@@ -60,7 +66,7 @@ export function InstallSection({ slug, manualFiles, reactManualFiles, framework 
               {copied ? "copied!" : "copy"}
             </button>
           </div>
-          <pre className="p-5 font-mono text-[13px] leading-[1.7] text-foreground">
+          <pre className="text-foreground p-5 font-mono text-[13px] leading-[1.7]">
             {npxCommand}
           </pre>
         </div>

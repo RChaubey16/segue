@@ -5,10 +5,7 @@ import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-const categoryConfig: Record<
-  TransitionCategory,
-  { label: string; order: number }
-> = {
+const categoryConfig: Record<TransitionCategory, { label: string; order: number }> = {
   page: { label: "Page Transitions", order: 0 },
   element: { label: "Element Transitions", order: 1 },
   "ui-state": { label: "UI State Transitions", order: 2 },
@@ -23,9 +20,7 @@ export function SidebarNav({
 }) {
   const pathname = usePathname()
 
-  const grouped = transitions.reduce<
-    Record<TransitionCategory, TransitionMeta[]>
-  >(
+  const grouped = transitions.reduce<Record<TransitionCategory, TransitionMeta[]>>(
     (acc, t) => {
       acc[t.category].push(t)
       return acc

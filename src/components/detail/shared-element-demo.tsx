@@ -3,8 +3,20 @@
 import { useRef, useState } from "react"
 
 const items = [
-  { slug: "luna", name: "Luna Chen", role: "Design Lead", emoji: "L", bg: "bg-accent/20" },
-  { slug: "alex", name: "Alex Rivera", role: "Engineer", emoji: "A", bg: "bg-accent/30" },
+  {
+    slug: "luna",
+    name: "Luna Chen",
+    role: "Design Lead",
+    emoji: "L",
+    bg: "bg-accent/20",
+  },
+  {
+    slug: "alex",
+    name: "Alex Rivera",
+    role: "Engineer",
+    emoji: "A",
+    bg: "bg-accent/30",
+  },
   { slug: "sam", name: "Sam Patel", role: "PM", emoji: "S", bg: "bg-accent/15" },
   { slug: "jo", name: "Jo Kim", role: "Researcher", emoji: "J", bg: "bg-accent/25" },
 ]
@@ -87,43 +99,41 @@ export function SharedElementDemo() {
   const active = items.find((i) => i.slug === activeSlug)
 
   return (
-    <div className="overflow-hidden rounded-xl border border-border bg-card">
+    <div className="border-border bg-card overflow-hidden rounded-xl border">
       {/* Browser chrome */}
-      <div className="flex items-center justify-between border-b border-border px-4 py-3">
+      <div className="border-border flex items-center justify-between border-b px-4 py-3">
         <div className="flex gap-1.5">
-          <i className="block h-2.5 w-2.5 rounded-full bg-border not-italic" />
-          <i className="block h-2.5 w-2.5 rounded-full bg-border not-italic" />
-          <i className="block h-2.5 w-2.5 rounded-full bg-border not-italic" />
+          <i className="bg-border block h-2.5 w-2.5 rounded-full not-italic" />
+          <i className="bg-border block h-2.5 w-2.5 rounded-full not-italic" />
+          <i className="bg-border block h-2.5 w-2.5 rounded-full not-italic" />
         </div>
-        <span className="rounded-md border border-border bg-background px-3 py-1 font-mono text-[11px] text-muted-foreground">
+        <span className="border-border bg-background text-muted-foreground rounded-md border px-3 py-1 font-mono text-[11px]">
           segue.dev/demo/shared-element
         </span>
         <button
           onClick={replay}
-          className="cursor-pointer rounded-md border border-border bg-transparent px-2.5 py-1 font-mono text-[11px] text-muted-foreground transition-colors duration-150 hover:border-accent hover:text-accent"
+          className="border-border text-muted-foreground hover:border-accent hover:text-accent cursor-pointer rounded-md border bg-transparent px-2.5 py-1 font-mono text-[11px] transition-colors duration-150"
         >
           ↺ replay
         </button>
       </div>
 
       {/* Viewport */}
-      <div ref={viewportRef} className="relative h-80 overflow-hidden bg-background">
+      <div ref={viewportRef} className="bg-background relative h-80 overflow-hidden">
         {/* List view */}
         {screen === "list" && (
           <div
             ref={listRef}
-            className={`absolute inset-0 flex flex-col bg-background ${
+            className={`bg-background absolute inset-0 flex flex-col ${
               phase === "morphing" ? "se-grid-fade" : ""
             }`}
           >
             {/* Mini nav */}
-            <div className="flex items-center justify-between border-b border-border px-6 py-3">
-              <span className="font-serif text-sm font-bold text-foreground">
+            <div className="border-border flex items-center justify-between border-b px-6 py-3">
+              <span className="text-foreground font-serif text-sm font-bold">
                 myapp
               </span>
-              <span className="font-mono text-[11px] text-foreground">
-                Team
-              </span>
+              <span className="text-foreground font-mono text-[11px]">Team</span>
             </div>
 
             {/* Card list */}
@@ -133,18 +143,18 @@ export function SharedElementDemo() {
                   key={item.slug}
                   data-slug={item.slug}
                   onClick={() => morph(item.slug)}
-                  className="flex cursor-pointer items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 text-left transition-colors hover:border-accent"
+                  className="border-border bg-background hover:border-accent flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 text-left transition-colors"
                 >
                   <div
-                    className={`${item.bg} flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full font-mono text-xs font-bold text-accent`}
+                    className={`${item.bg} text-accent flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full font-mono text-xs font-bold`}
                   >
                     {item.emoji}
                   </div>
                   <div className="min-w-0">
-                    <span className="block truncate font-mono text-[12px] font-medium text-foreground">
+                    <span className="text-foreground block truncate font-mono text-[12px] font-medium">
                       {item.name}
                     </span>
-                    <span className="block truncate font-mono text-[10px] text-muted-foreground">
+                    <span className="text-muted-foreground block truncate font-mono text-[10px]">
                       {item.role}
                     </span>
                   </div>
@@ -160,7 +170,7 @@ export function SharedElementDemo() {
             className={`${active.bg} flex items-center justify-center`}
             style={cardStyle}
           >
-            <span className="font-mono text-lg font-bold text-accent">
+            <span className="text-accent font-mono text-lg font-bold">
               {active.emoji}
             </span>
           </div>
@@ -169,50 +179,48 @@ export function SharedElementDemo() {
         {/* Detail view */}
         {screen === "detail" && (
           <div
-            className={`absolute inset-0 flex flex-col bg-background ${
+            className={`bg-background absolute inset-0 flex flex-col ${
               phase === "collapsing" ? "se-detail-exit" : ""
             }`}
           >
             {/* Mini nav */}
-            <div className="flex items-center justify-between border-b border-border px-6 py-3">
-              <span className="font-serif text-sm font-bold text-foreground">
+            <div className="border-border flex items-center justify-between border-b px-6 py-3">
+              <span className="text-foreground font-serif text-sm font-bold">
                 myapp
               </span>
               <button
                 onClick={collapse}
-                className="cursor-pointer border-none bg-transparent p-0 font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground cursor-pointer border-none bg-transparent p-0 font-mono text-[11px] transition-colors"
               >
                 ← Back
               </button>
             </div>
 
             {/* Hero — where the card landed */}
-            <div
-              className={`${active?.bg} flex h-24 items-center justify-center`}
-            >
-              <span className="font-mono text-2xl font-bold text-accent">
+            <div className={`${active?.bg} flex h-24 items-center justify-center`}>
+              <span className="text-accent font-mono text-2xl font-bold">
                 {active?.emoji}
               </span>
             </div>
 
             {/* Detail content */}
             <div className="se-detail-enter flex flex-1 flex-col items-center justify-center gap-2 px-6">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              <span className="text-muted-foreground font-mono text-[10px] tracking-widest uppercase">
                 Profile
               </span>
-              <span className="font-serif text-lg font-bold text-foreground">
+              <span className="text-foreground font-serif text-lg font-bold">
                 {active?.name}
               </span>
-              <span className="font-mono text-[11px] text-muted-foreground">
+              <span className="text-muted-foreground font-mono text-[11px]">
                 {active?.role}
               </span>
-              <p className="mt-1 max-w-60 text-center text-xs leading-relaxed text-muted-foreground">
-                The card morphed into this hero — the browser interpolated
-                position, size, and shape automatically.
+              <p className="text-muted-foreground mt-1 max-w-60 text-center text-xs leading-relaxed">
+                The card morphed into this hero — the browser interpolated position,
+                size, and shape automatically.
               </p>
               <button
                 onClick={collapse}
-                className="mt-2 mb-2 cursor-pointer rounded-md border-none bg-accent px-5 py-2 font-mono text-[12px] font-medium text-accent-foreground"
+                className="bg-accent text-accent-foreground mt-2 mb-2 cursor-pointer rounded-md border-none px-5 py-2 font-mono text-[12px] font-medium"
               >
                 Back to Team
               </button>

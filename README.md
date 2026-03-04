@@ -47,10 +47,10 @@ Under the hood, Segue uses the View Transition API:
 
 ## Available Transitions
 
-| Transition    | Description                                                       |
-| ------------- | ----------------------------------------------------------------- |
-| `slide-right` | New page enters from the right, old page exits to the left        |
-| `slide-up`    | New page enters from the bottom, old page exits toward the top    |
+| Transition    | Description                                                    |
+| ------------- | -------------------------------------------------------------- |
+| `slide-right` | New page enters from the right, old page exits to the left     |
+| `slide-up`    | New page enters from the bottom, old page exits toward the top |
 
 ## Framework Support
 
@@ -61,7 +61,7 @@ Segue supports both Next.js and React.
 ```tsx
 import { SlideRightLink } from "@/transitions/slide-right/link"
 
-<SlideRightLink href="/about">About</SlideRightLink>
+;<SlideRightLink href="/about">About</SlideRightLink>
 ```
 
 **React** (React Router):
@@ -69,7 +69,7 @@ import { SlideRightLink } from "@/transitions/slide-right/link"
 ```tsx
 import { SlideRightLink } from "@/transitions/slide-right/link"
 
-<SlideRightLink to="/about">About</SlideRightLink>
+;<SlideRightLink to="/about">About</SlideRightLink>
 ```
 
 ## Project Structure

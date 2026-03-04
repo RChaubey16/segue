@@ -34,7 +34,7 @@ function PageContent({
       {/* Content */}
       <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6">
         <span
-          className={`font-mono text-[10px] uppercase tracking-widest ${dark ? "text-[#888]" : "text-muted-foreground"}`}
+          className={`font-mono text-[10px] tracking-widest uppercase ${dark ? "text-[#888]" : "text-muted-foreground"}`}
         >
           {dark ? "Dark Mode" : "Light Mode"}
         </span>
@@ -69,9 +69,7 @@ export function DarkModeDemo() {
     if (!vp) return 800
     const w = vp.offsetWidth
     const h = vp.offsetHeight
-    return Math.sqrt(
-      Math.max(x, w - x) ** 2 + Math.max(y, h - y) ** 2
-    )
+    return Math.sqrt(Math.max(x, w - x) ** 2 + Math.max(y, h - y) ** 2)
   }
 
   const toggle = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -110,20 +108,20 @@ export function DarkModeDemo() {
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-border bg-card">
+    <div className="border-border bg-card overflow-hidden rounded-xl border">
       {/* Browser chrome */}
-      <div className="flex items-center justify-between border-b border-border px-4 py-3">
+      <div className="border-border flex items-center justify-between border-b px-4 py-3">
         <div className="flex gap-1.5">
-          <i className="block h-2.5 w-2.5 rounded-full bg-border not-italic" />
-          <i className="block h-2.5 w-2.5 rounded-full bg-border not-italic" />
-          <i className="block h-2.5 w-2.5 rounded-full bg-border not-italic" />
+          <i className="bg-border block h-2.5 w-2.5 rounded-full not-italic" />
+          <i className="bg-border block h-2.5 w-2.5 rounded-full not-italic" />
+          <i className="bg-border block h-2.5 w-2.5 rounded-full not-italic" />
         </div>
-        <span className="rounded-md border border-border bg-background px-3 py-1 font-mono text-[11px] text-muted-foreground">
+        <span className="border-border bg-background text-muted-foreground rounded-md border px-3 py-1 font-mono text-[11px]">
           segue.dev/demo/dark-mode
         </span>
         <button
           onClick={replay}
-          className="cursor-pointer rounded-md border border-border bg-transparent px-2.5 py-1 font-mono text-[11px] text-muted-foreground transition-colors duration-150 hover:border-accent hover:text-accent"
+          className="border-border text-muted-foreground hover:border-accent hover:text-accent cursor-pointer rounded-md border bg-transparent px-2.5 py-1 font-mono text-[11px] transition-colors duration-150"
         >
           ↺ replay
         </button>

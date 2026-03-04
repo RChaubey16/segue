@@ -11,7 +11,12 @@ export function QuickStart() {
     <div>
       {/* Framework selector */}
       <div className="mb-3 flex gap-1.5">
-        {([["nextjs", "Next.js"], ["react", "React"]] as const).map(([key, label]) => (
+        {(
+          [
+            ["nextjs", "Next.js"],
+            ["react", "React"],
+          ] as const
+        ).map(([key, label]) => (
           <button
             key={key}
             onClick={() => setFramework(key)}
@@ -26,27 +31,25 @@ export function QuickStart() {
         ))}
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-border bg-card">
-        <div className="border-b border-border px-4 py-2.5">
-          <span className="font-mono text-[11px] text-muted-foreground">
-            terminal
-          </span>
+      <div className="border-border bg-card overflow-hidden rounded-xl border">
+        <div className="border-border border-b px-4 py-2.5">
+          <span className="text-muted-foreground font-mono text-[11px]">terminal</span>
         </div>
-        <pre className="p-5 font-mono text-[13px] leading-[1.7] text-foreground">
+        <pre className="text-foreground p-5 font-mono text-[13px] leading-[1.7]">
           npx segue add slide-right
         </pre>
       </div>
-      <p className="mt-3 text-[13px] text-muted-foreground">
+      <p className="text-muted-foreground mt-3 text-[13px]">
         Then use it in any page or layout:
       </p>
-      <div className="mt-3 overflow-hidden rounded-xl border border-border bg-card">
-        <div className="border-b border-border px-4 py-2.5">
-          <span className="font-mono text-[11px] text-muted-foreground">
+      <div className="border-border bg-card mt-3 overflow-hidden rounded-xl border">
+        <div className="border-border border-b px-4 py-2.5">
+          <span className="text-muted-foreground font-mono text-[11px]">
             {framework === "react" ? "App.tsx" : "app/page.tsx"}
           </span>
         </div>
         {framework === "nextjs" ? (
-          <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-[1.7] text-foreground">
+          <pre className="text-foreground overflow-x-auto p-5 font-mono text-[13px] leading-[1.7]">
             <span className="hl-kw">import</span> {"{"} SlideRightLink {"}"}{" "}
             <span className="hl-kw">from</span>{" "}
             <span className="hl-st">{'"@/transitions/slide-right"'}</span>
@@ -55,8 +58,7 @@ export function QuickStart() {
             <span className="hl-kw">function</span> Page() {"{"}
             {"\n"}
             {"  "}
-            <span className="hl-kw">return</span> (
-            {"\n"}
+            <span className="hl-kw">return</span> ({"\n"}
             {"    "}&lt;SlideRightLink href=
             <span className="hl-st">{'"/about"'}</span>&gt;
             {"\n"}
@@ -66,7 +68,7 @@ export function QuickStart() {
             {"}"}
           </pre>
         ) : (
-          <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-[1.7] text-foreground">
+          <pre className="text-foreground overflow-x-auto p-5 font-mono text-[13px] leading-[1.7]">
             <span className="hl-kw">import</span> {"{"} SlideRightLink {"}"}{" "}
             <span className="hl-kw">from</span>{" "}
             <span className="hl-st">{'"./transitions/slide-right"'}</span>
@@ -74,8 +76,7 @@ export function QuickStart() {
             <span className="hl-kw">function</span> App() {"{"}
             {"\n"}
             {"  "}
-            <span className="hl-kw">return</span> (
-            {"\n"}
+            <span className="hl-kw">return</span> ({"\n"}
             {"    "}&lt;SlideRightLink to=
             <span className="hl-st">{'"/about"'}</span>&gt;
             {"\n"}
