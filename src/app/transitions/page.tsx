@@ -1,6 +1,19 @@
 import { TransitionCard } from "@/components/transition-card"
 import { getTransitions } from "@/lib/registry"
+import type { Metadata } from "next"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Transitions",
+  description:
+    "Browse all available Segue transitions — drop-in page transitions for Next.js powered by the View Transition API.",
+  openGraph: {
+    title: "Transitions — Segue",
+    description:
+      "Browse all available Segue transitions — drop-in page transitions for Next.js powered by the View Transition API.",
+    url: "/transitions",
+  },
+}
 
 export default async function TransitionsPage() {
   const transitions = await getTransitions()

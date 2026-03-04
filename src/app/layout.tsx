@@ -22,9 +22,39 @@ const fontMono = JetBrains_Mono({
   variable: "--font-mono",
 })
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://segue.dev"
+
 export const metadata: Metadata = {
-  title: "Segue",
-  description: "Drop-in page transitions for Next.js",
+  title: {
+    default: "Segue — Drop-in Page Transitions for Next.js",
+    template: "%s — Segue",
+  },
+  description:
+    "Beautiful, drop-in page transitions for Next.js powered by the View Transition API. Zero config, framework-native, and works with the App Router.",
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    type: "website",
+    siteName: "Segue",
+    title: "Segue — Drop-in Page Transitions for Next.js",
+    description:
+      "Beautiful, drop-in page transitions for Next.js powered by the View Transition API. Zero config, framework-native, and works with the App Router.",
+    url: siteUrl,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Segue — Drop-in Page Transitions for Next.js",
+    description:
+      "Beautiful, drop-in page transitions for Next.js powered by the View Transition API.",
+  },
+  keywords: [
+    "Next.js",
+    "page transitions",
+    "View Transition API",
+    "React",
+    "animation",
+    "App Router",
+  ],
+  authors: [{ name: "Segue" }],
 }
 
 export default async function RootLayout({

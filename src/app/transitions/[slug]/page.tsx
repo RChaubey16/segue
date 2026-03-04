@@ -2,6 +2,7 @@ import { DarkModeDemo } from "@/components/detail/dark-mode-demo"
 import { FrameworkSections } from "@/components/detail/framework-sections"
 import { LiveDemo } from "@/components/detail/live-demo"
 import { SharedElementDemo } from "@/components/detail/shared-element-demo"
+import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
@@ -24,6 +25,34 @@ export async function generateStaticParams() {
     { slug: "dark-mode" },
     { slug: "shared-element" },
   ]
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const transition = await getTransition(slug)
+  if (!transition) return {}
+
+  const title = transition.name
+  const description = `${transition.description} — ${transition.duration}, ${transition.easing} easing.`
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${transition.name} — Segue`,
+      description,
+      url: `/transitions/${slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${transition.name} — Segue`,
+      description,
+    },
+  }
 }
 
 export default async function TransitionDetailPage({
