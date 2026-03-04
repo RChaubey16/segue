@@ -179,13 +179,13 @@ export default function Home() {
         </p>
       </div>
 
-      {/* Browse transitions link */}
+      {/* Browse all transitions */}
       <div className="animate-fade-up flex justify-end [animation-delay:240ms]">
         <Link
-          href="/transitions/fade-in"
-          className="text-accent hover:text-accent/80 text-sm font-medium no-underline transition-colors"
+          href="/transitions"
+          className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex items-center gap-2 rounded-lg px-6 py-3 font-mono text-sm font-medium no-underline transition-colors"
         >
-          Fade In &rarr;
+          Browse all transitions &rarr;
         </Link>
       </div>
     </div>
