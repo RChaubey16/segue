@@ -1,11 +1,17 @@
 import { QuickStart } from "@/components/quick-start"
-import { TransitionCard } from "@/components/transition-card"
-import { getTransitions } from "@/lib/registry"
+import { CircleCheck, CircleX } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
-export default async function Home() {
-  const transitions = await getTransitions()
+const browsers = [
+  { name: "Chrome", icon: "/icons/browsers/chrome.svg", supported: true },
+  { name: "Edge", icon: "/icons/browsers/edge.svg", supported: true },
+  { name: "Safari", icon: "/icons/browsers/safari.svg", supported: true },
+  { name: "Firefox", icon: "/icons/browsers/firefox.svg", supported: true },
+  { name: "Opera", icon: "/icons/browsers/opera.svg", supported: true },
+]
 
+export default function Home() {
   return (
     <div className="mx-auto max-w-[860px] px-6 pt-12 pb-28">
       {/* Hero */}
@@ -137,16 +143,50 @@ export default async function Home() {
         <QuickStart />
       </div>
 
-      {/* Transitions */}
-      <div className="animate-fade-up [animation-delay:200ms]">
+      {/* Browser support */}
+      <div className="animate-fade-up mb-16 [animation-delay:200ms]">
         <div className="section-label text-muted-foreground mb-6 flex items-center gap-2.5 font-mono text-[11px] font-medium tracking-[0.12em] uppercase">
-          Transitions
+          Browser support
         </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {transitions.map((t) => (
-            <TransitionCard key={t.slug} transition={t} />
+        <div className="border-border bg-card grid grid-cols-5 overflow-hidden rounded-xl border">
+          {browsers.map((b) => (
+            <div
+              key={b.name}
+              className="border-border flex flex-col items-center gap-3 border-r p-5 last:border-r-0"
+            >
+              <Image src={b.icon} alt={b.name} width={32} height={32} />
+              <span className="text-foreground text-center text-[12px] font-medium leading-tight">
+                {b.name}
+              </span>
+              {b.supported ? (
+                <CircleCheck className="h-4 w-4 text-emerald-500" />
+              ) : (
+                <CircleX className="h-4 w-4 text-red-500" />
+              )}
+            </div>
           ))}
         </div>
+        <p className="text-muted-foreground mt-3 text-[12px]">
+          Source:{" "}
+          <a
+            href="https://caniuse.com/view-transitions"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-foreground decoration-border hover:decoration-accent underline underline-offset-4 transition-colors"
+          >
+            caniuse.com
+          </a>
+        </p>
+      </div>
+
+      {/* Browse transitions link */}
+      <div className="animate-fade-up flex justify-end [animation-delay:240ms]">
+        <Link
+          href="/transitions/fade-in"
+          className="text-accent hover:text-accent/80 text-sm font-medium no-underline transition-colors"
+        >
+          Fade In &rarr;
+        </Link>
       </div>
     </div>
   )

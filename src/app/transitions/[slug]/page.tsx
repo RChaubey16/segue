@@ -35,6 +35,7 @@ export default async function TransitionDetailPage({
   const transition = await getTransition(slug)
   if (!transition) notFound()
 
+  const category = String(transition.category + " Transition").toUpperCase();
   const words = transition.name.split(" ")
   const firstWords = words.slice(0, -1).join(" ")
   const lastWord = words[words.length - 1]
@@ -67,7 +68,7 @@ export default async function TransitionDetailPage({
       <div className="animate-fade-up mb-10 [animation-delay:50ms]">
         <div className="text-accent bg-accent/8 border-accent/20 mb-5 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11px] font-medium tracking-widest uppercase">
           <i className="bg-accent block h-1.5 w-1.5 rounded-full not-italic" />
-          Page Transition
+          {category}
         </div>
         <h1 className="mb-5 font-serif text-[clamp(48px,8vw,80px)] leading-none font-extrabold tracking-[-0.03em]">
           {firstWords}
