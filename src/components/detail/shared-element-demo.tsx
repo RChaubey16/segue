@@ -212,7 +212,7 @@ export function SharedElementDemo() {
               </p>
               <button
                 onClick={collapse}
-                className="mt-2 cursor-pointer rounded-md border-none bg-accent px-5 py-2 font-mono text-[12px] font-medium text-accent-foreground"
+                className="mt-2 mb-2 cursor-pointer rounded-md border-none bg-accent px-5 py-2 font-mono text-[12px] font-medium text-accent-foreground"
               >
                 Back to Team
               </button>

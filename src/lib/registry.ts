@@ -1,7 +1,10 @@
 import fs from "fs/promises"
 import path from "path"
 
+export type TransitionCategory = "page" | "element" | "ui-state"
+
 export interface TransitionMeta {
+  category: TransitionCategory
   slug: string
   name: string
   description: string
@@ -20,6 +23,7 @@ export async function getTransitions(): Promise<TransitionMeta[]> {
       const raw = await fs.readFile(path.join(registryDir, file), "utf-8")
       const data = JSON.parse(raw)
       return {
+        category: data.category ?? "page",
         slug: data.slug,
         name: data.name,
         description: data.description,

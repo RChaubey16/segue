@@ -1,4 +1,5 @@
 {
+  "category": "page",
   "slug": "slide-up",
   "name": "Slide Up",
   "description": "New page enters from below while the current page exits upward. Ideal for hierarchical navigation — feels like moving forward through a stack.",
